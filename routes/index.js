@@ -5,6 +5,14 @@ router.get('/', function (req, res) {
     res.render('index');
 });
 
+router.get('/eth', function (req, res) {
+    res.render('eth');
+});
+
+router.get('/btc', function (req, res) {
+    res.render('btc');
+});
+
 router.get('/qash', function (req, res) {
     res.render('qash');
 });

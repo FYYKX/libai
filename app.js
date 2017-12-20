@@ -6,8 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var auth = require('basic-auth');
 
-var bitcoin = require('./routes/bitcoin');
-
 var book = require('./routes/book');
 var balances = require('./routes/balances');
 var liveorders = require('./routes/liveorders');
@@ -16,7 +14,6 @@ var cancelallorders = require('./routes/cancelallorders');
 var neworder = require('./routes/neworder');
 var trades = require('./routes/trades');
 var cron = require('./routes/cron');
-var ethereum = require('./routes/ethereum');
 
 var index = require('./routes/index');
 
@@ -53,7 +50,6 @@ app.use(function (req, res, next) {
   }
 });
 
-app.use('/bitcoin', bitcoin);
 app.use('/book', book);
 app.use('/balances', balances);
 app.use('/liveorders', liveorders);
@@ -61,7 +57,6 @@ app.use('/cancelorder', cancelorder);
 app.use('/cancelallorders', cancelallorders);
 app.use('/neworder', neworder);
 app.use('/trades', trades);
-app.use('/ethereum', ethereum);
 
 app.use('/', index);
 
