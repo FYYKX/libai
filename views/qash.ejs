@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ./partials/head %>
+</head>
+
+<body ng-app="app">
+  <% include ./partials/nav %>
+    <div class="container">
+      <div ng-controller="balancesController">
+        <h1>Exchange Balanace Table</h1>
+        <button type="button" class="btn btn-primary" ng-click="loadBalance()">Refresh</button>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Exchange</th>
+              <th>ETH</th>
+              <th>QASH</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="balance in balances">
+              <td>
+                <span class="label" ng-class="balance.exchange">{{balance.exchange}}</span>
+              </td>
+              <td>
+                <span ng-class="balance.eth < 0.1 ? 'label label-danger' : ''">{{balance.eth}}</span>
+              </td>
+              <td>
+                <span ng-class="balance.qash < 10 ? 'label label-danger' : ''">{{balance.qash}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div ng-controller="bookController">
+        <h1>Book QASHETH</h1>
+        <button type="button" class="btn btn-primary" ng-click="loadBook()">Refresh</button>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Exchange</th>
+              <th>Ask</th>
+              <th>Bid</th>
+              <th>Percentage</th>
+              <th>Amount</th>
+              <th>Spread</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="book in books">
+              <td>
+                <span class="label" ng-class="book.exchange">{{book.exchange}}</span>
+              </td>
+              <td>{{book.ask}}</td>
+              <td>{{book.bid}}</td>
+              <td>
+                <span ng-class="book.percentage > 0 ? 'label label-success' : 'label label-danger'">{{book.p}}</span>
+              </td>
+              <td>{{book.amount}}</td>
+              <td>{{book.sp}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div ng-controller="orderController">
+        <h1>Live Orders Table</h1>
+        <button type="button" class="btn btn-primary" ng-click="loadOrder()">Refresh</button>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Exchange</th>
+              <th>Order ID</th>
+              <th>Symbol</th>
+              <th>Order Side</th>
+              <th>Price</th>
+              <th>Amount</th>
+              <th>Order Status</th>
+              <th>Filled Amount</th>
+              <th>Cancel Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="order in quoinex_orders">
+              <td>
+                <span class="label label-primary">quoine</span>
+              </td>
+              <td>{{order.id}}</td>
+              <td>{{order.currency_pair_code}}</td>
+              <td>
+                <span ng-class="order.side == 'buy' ? 'label label-success' : 'label label-danger'">{{order.side}}</span>
+              </td>
+              <td>{{order.price}}</td>
+              <td>{{order.quantity}}</td>
+              <td>{{order.status}}</td>
+              <td>
+                <span ng-class="order.filled_quantity == 0 ? 'label label-danger' : ''">{{order.filled_quantity}}</span>
+              </td>
+              <td>
+                <button class="btn btn-primary" type="button" ng-click="cancelOrder('quoine', $index)">Cancel
+                </button>
+              </td>
+            </tr>
+            <tr ng-repeat="order in qryptos_orders">
+              <td>
+                <span class="label qryptos">qryptos</span>
+              </td>
+              <td>{{order.id}}</td>
+              <td>{{order.currency_pair_code}}</td>
+              <td>
+                <span ng-class="order.side == 'buy' ? 'label label-success' : 'label label-danger'">{{order.side}}</span>
+              </td>
+              <td>{{order.price}}</td>
+              <td>{{order.quantity}}</td>
+              <td>{{order.status}}</td>
+              <td>
+                <span ng-class="order.filled_quantity == 0 ? 'label label-danger' : ''">{{order.filled_quantity}}</span>
+              </td>
+              <td>
+                <button class="btn btn-primary" type="button" ng-click="cancelOrder('qryptos', $index)">Cancel
+                </button>
+              </td>
+            </tr>
+            <tr ng-repeat="order in bitfinex_orders">
+              <td>
+                <span class="label bitfinex">bitfinex</span>
+              </td>
+              <td>{{order.id}}</td>
+              <td>
+                <span ng-class="order.side == 'buy' ? 'label label-success' : 'label label-danger'">{{order.side}}</span>
+              </td>
+              <td>{{order.price}}</td>
+              <td>{{order.original_amount}}</td>
+              <td>{{order.is_live}}</td>
+              <td>{{order.executed_amount}}</td>
+              <td>
+                <button class="btn btn-primary" type="button" ng-click="cancelOrder('bitfinex', $index)">Cancel
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div ng-controller="tradeController">
+        <h1>Historical Trades Table</h1>
+        <button type="button" class="btn btn-primary" ng-click="loadTrades()">Refresh</button>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Exchange</th>
+              <th>Order ID</th>
+              <th>Order Side</th>
+              <th>Price</th>
+              <th>Amount</th>
+              <th>CreatedAt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="trade in quoinex_trades">
+              <td>
+                <span class="label quoine">quoine</span>
+              </td>
+              <td>{{trade.id}}</td>
+              <td>
+                <span ng-class="trade.taker_side == 'buy' ? 'label label-success' : 'label label-danger'">{{trade.taker_side}}</span>
+              </td>
+              <td>{{trade.price}}</td>
+              <td>{{trade.quantity}}</td>
+              <td>{{trade.created_at * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+            <tr ng-repeat="trade in qryptos_trades">
+              <td>
+                <span class="label qryptos">qryptos</span>
+              </td>
+              <td>{{trade.id}}</td>
+              <td>
+                <span ng-class="trade.taker_side == 'buy' ? 'label label-success' : 'label label-danger'">{{trade.taker_side}}</span>
+              </td>
+              <td>{{trade.price}}</td>
+              <td>{{trade.quantity}}</td>
+              <td>{{trade.created_at * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+            <tr ng-repeat="trade in bitfinex_trades">
+              <td>
+                <span class="label bitfinex">bitfinex</span>
+              </td>
+              <td>{{trade.order_id}}</td>
+              <td>
+                <span ng-class="trade.type == 'Buy' ? 'label label-success' : 'label label-danger'">{{trade.type | lowercase}}</span>
+              </td>
+              <td>{{trade.price}}</td>
+              <td>{{trade.amount}}</td>
+              <td>{{trade.timestamp * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% include ./partials/script %>
+      <script type="text/javascript" src="/javascripts/qash.js"></script>
+</body>
+
+</html>

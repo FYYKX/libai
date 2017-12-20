@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ./partials/head %>
+</head>
+
+<body ng-app="app">
+    <% include ./partials/nav %>
+        <div class="container">
+            <div ng-controller="balancesController">
+                <h1>Exchange Balance Table</h1>
+                <button type="button" class="btn btn-primary" ng-click="loadBalance()">Refresh</button>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Exchange</th>
+                            <th>USD</th>
+                            <th>SGD</th>
+                            <th>ETH</th>
+                            <th>QASH</th>
+                            <th>BTC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="balance in balances">
+                            <td>{{balance.exchange}}</td>
+                            <td>{{balance.usd}}</td>
+                            <td>{{balance.sgd}}</td>
+                            <td>{{balance.eth}}</td>
+                            <td>{{balance.qash}}</td>
+                            <td>{{balance.btc}}</td>
+                        </tr>
+                        <tr class="danger">
+                            <td>Total</td>
+                            <td>{{total_usd}}</td>
+                            <td>{{total_sgd}}</td>
+                            <td>{{total_eth}}</td>
+                            <td>{{total_qash}}</td>
+                            <td>{{total_btc}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <% include ./partials/script %>
+            <script type="text/javascript" src="/javascripts/qqbp.js"></script>
+</body>
+
+</html>

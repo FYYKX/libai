@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ./partials/head %>
+</head>
+
+<body ng-app="app">
+  <% include ./partials/nav %>
+    <div class="container">
+      <div ng-controller="balancesController">
+        <h1>Exchange Balanace Table</h1>
+        <button type="button" class="btn btn-primary" ng-click="loadBalance()">Refresh</button>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Exchange</th>
+              <th>USD</th>
+              <th>Bitcoin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>bitfinex</td>
+              <td>{{bitfinex_usd}}</td>
+              <td>{{bitfinex_bitcoin}}</td>
+            </tr>
+            <tr>
+              <td>btce</td>
+              <td>{{btc_usd}}</td>
+              <td>{{btc_bitcoin}}</td>
+            </tr>
+            <tr>
+              <td>itbit</td>
+              <td>{{itbit_usd}}</td>
+              <td>{{itbit_bitcoin}}</td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td>{{total_usd}}</td>
+              <td>{{total_bitcoin}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div ng-controller="orderController">
+        <h1>Live Orders Table</h1>
+        <button type="button" class="btn btn-primary" ng-click="loadOrder()">Refresh</button>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Exchange</th>
+              <th>Order ID</th>
+              <th>Order Side</th>
+              <th>USD Price</th>
+              <th>BTC Amount</th>
+              <th>Order Status</th>
+              <th>Filled Amount</th>
+              <th>Cancel Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="order in bitfinex_orders">
+              <td>bitfinex</td>
+              <td>{{order.id}}</td>
+              <td>{{order.side}}</td>
+              <td>{{order.price}}</td>
+              <td>{{order.original_amount}}</td>
+              <td>{{order.is_live}}</td>
+              <td>{{order.executed_amount}}</td>
+              <td><button class="btn btn-primary" type="button" ng-click="cancelOrder('bitfinex', $index)">Cancel</button></td>
+            </tr>
+            <tr ng-repeat="(key, order) in btce_orders">
+              <td>btce</td>
+              <td>{{key}}</td>
+              <td>{{order.type}}</td>
+              <td>{{order.rate}}</td>
+              <td>{{order.amount}}</td>
+              <td>{{order.status}}</td>
+              <td>TODO</td>
+              <td><button class="btn btn-primary" type="button" ng-click="cancelOrder('btce', key)">Cancel</button></td>
+            </tr>
+            <tr ng-repeat="order in itbit_orders">
+              <td>itbit</td>
+              <td>{{order.id}}</td>
+              <td>{{order.side}}</td>
+              <td>{{order.price}}</td>
+              <td>{{order.amount}}</td>
+              <td>{{order.status}}</td>
+              <td>{{order.amountFilled}}</td>
+              <td><button class="btn btn-primary" type="button" ng-click="cancelOrder('itbit', $index)">Cancel</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div ng-controller="bookController">
+        <h1>Chance</h1>
+        <button type="button" class="btn btn-primary" ng-click="start()">Start <span class="badge">{{count}}</span></button>
+        <button type="button" class="btn btn-danger" ng-click="stop()">Stop</button>
+        <button type="button" class="btn btn-warning" ng-click="clear()">Clear</button>
+        <audio>
+                <source src="/content/chance.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Asks Exchange</th>
+              <th>Asks Price</th>
+              <th>Asks Amount</th>
+              <th>Bids Exchange</th>
+              <th>Bids Price</th>
+              <th>Bids Amount</th>
+              <th>Percentage</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+            <tr ng-repeat="book in books">
+              <td>{{book.asks_exchange}}</td>
+              <td>{{book.asks_price}}</td>
+              <td>{{book.asks_amount}}</td>
+              <td>{{book.bids_exchange}}</td>
+              <td>{{book.bids_price}}</td>
+              <td>{{book.bids_amount}}</td>
+              <td>{{book.percentage}}</td>
+              <td>{{book.possibleVolume}}</td>
+              <td><button type="button" class="btn btn-primary" ng-click="newOrder($index)">New Order</button></td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div ng-controller="tradeController">
+        <h1>Historical Trades Table</h1>
+        <button type="button" class="btn btn-primary" ng-click="loadTrades()">Refresh</button>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Exchange</th>
+              <th>Order ID</th>
+              <th>Order Side</th>
+              <th>USD Price</th>
+              <th>BTC Amount</th>
+              <th>Time Stamp</th>
+              <!-- <th>Commission</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="trade in bitfinex_trades">
+              <td>bitfinex</td>
+              <td>{{trade.order_id}}</td>
+              <td>{{trade.type}}</td>
+              <td>{{trade.price}}</td>
+              <td>{{trade.amount}}</td>
+              <td>{{trade.timestamp * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+            <tr ng-repeat="(key, trade) in btce_trades">
+              <td>btce</td>
+              <td>{{key}}</td>
+              <td>{{trade.type}}</td>
+              <td>{{trade.rate}}</td>
+              <td>{{trade.amount}}</td>
+              <td>{{trade.timestamp * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+
+              <!-- <td>{{Date(trade.timestamp*1000).getDate()}}</td> -->
+            </tr>
+            <tr ng-repeat="trade in itbit_trades">
+              <td>itbit</td>
+              <td>{{trade.orderId}}</td>
+              <td>{{trade.direction}}</td>
+              <td>{{trade.rate}}</td>
+              <td>{{trade.currency1Amount}}</td>
+              <td>{{trade.timestamp.substring(0, 10) + " " + trade.timestamp.substring(11, 19)}}</td>
+              <!-- <td>{{trade.commissionPaid}}</td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% include ./partials/script %>
+      <script type="text/javascript" src="/javascripts/bitcoin.js"></script>
+</body>
+
+</html>
