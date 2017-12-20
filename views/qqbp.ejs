@@ -24,7 +24,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="balance in balances">
-                            <td>{{balance.exchange}}</td>
+                            <td>
+                                <span class="label" ng-class="balance.exchange">{{balance.exchange}}</span>
+                            </td>
                             <td>{{balance.usd}}</td>
                             <td>{{balance.sgd}}</td>
                             <td>{{balance.eth}}</td>
