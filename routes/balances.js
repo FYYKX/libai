@@ -40,13 +40,14 @@ router.get('/qqbp', function (req, res) {
     },
     function (callback) {
       bitfinex.balances(function (body) {
+        var exchange = body.filter(item => item.type == "exchange");
         var data = {
           "exchange": "bitfinex",
-          "usd": body.find(item => item.currency === "usd").amount,
+          "usd": exchange.find(item => item.currency === "usd").amount,
           "sgd": 0,
-          "eth": body.find(item => item.currency === "eth").amount,
-          "qash": body.find(item => item.currency === "qsh").amount,
-          "btc": body.find(item => item.currency === "btc").amount
+          "eth": exchange.find(item => item.currency === "eth").amount,
+          "qash": exchange.find(item => item.currency === "qsh").amount,
+          "btc": exchange.find(item => item.currency === "btc").amount
         };
         callback(null, data);
       });
