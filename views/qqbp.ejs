@@ -27,11 +27,21 @@
                             <td>
                                 <span class="label" ng-class="balance.exchange">{{balance.exchange}}</span>
                             </td>
-                            <td>{{balance.usd}}</td>
-                            <td>{{balance.sgd}}</td>
-                            <td>{{balance.eth}}</td>
-                            <td>{{balance.qash}}</td>
-                            <td>{{balance.btc}}</td>
+                            <td>
+                                <span ng-class="balance.usd < 50 ? 'label label-danger' : ''">{{balance.usd}}</span>
+                            </td>
+                            <td>
+                                <span ng-class="balance.sgd < 50 ? 'label label-danger' : ''">{{balance.sgd}}</span>
+                            </td>
+                            <td>
+                                <span ng-class="balance.eth < 0.1 ? 'label label-danger' : ''">{{balance.eth}}</span>
+                            </td>
+                            <td>
+                                <span ng-class="balance.qash < 100 ? 'label label-danger' : ''">{{balance.qash}}</span>
+                            </td>
+                            <td>
+                                <span ng-class="balance.btc < 0.0001 ? 'label label-danger' : ''">{{balance.btc}}</span>
+                            </td>
                         </tr>
                         <tr class="danger">
                             <td>Total</td>
