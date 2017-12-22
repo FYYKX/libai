@@ -42,7 +42,7 @@ router.get('/qqbp', function (req, res) {
       bitfinex.balances(function (body) {
         var data = {
           "exchange": "bitfinex",
-          "usd": 0,
+          "usd": body.find(item => item.currency === "usd").amount,
           "sgd": 0,
           "eth": body.find(item => item.currency === "eth").amount,
           "qash": body.find(item => item.currency === "qsh").amount,
