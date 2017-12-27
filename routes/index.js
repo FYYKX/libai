@@ -1,4 +1,6 @@
 var express = require('express');
+var async = require('async');
+var request = require('request');
 var router = express.Router();
 
 router.get('/', function (req, res) {
@@ -19,6 +21,15 @@ router.get('/qash', function (req, res) {
 
 router.get('/qqbp', function (req, res) {
     res.render('qqbp');
+});
+
+router.get('/ticker', function (req, res) {
+    request.get({
+        url: 'https://poloniex.com/public?command=returnTicker',
+        json: true
+    }, function (error, response, body) {
+        res.json(body);
+    });
 });
 
 module.exports = router;

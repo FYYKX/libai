@@ -8,6 +8,7 @@ var qryptos = require('./exchange/qryptos');
 
 var data = require('./data');
 var async = require('async');
+var request = require('request');
 var _ = require('lodash/core');
 
 router.get('/qqbp', function (req, res) {
