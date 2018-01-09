@@ -16,6 +16,7 @@ var trades = require('./routes/trades');
 var cron = require('./routes/cron');
 
 var index = require('./routes/index');
+var config = require('./config');
 
 cron.task.start();
 
@@ -39,8 +40,8 @@ app.use(function (req, res, next) {
   var credentials = auth(req);
 
   if (!credentials ||
-    credentials.name !== 'ps' ||
-    credentials.pass !== 'ps123') {
+    credentials.name !== config.name ||
+    credentials.pass !== config.pass) {
     res.statusCode = 401;
     res.setHeader('WWW-Authenticate', 'Basic realm="example"');
     res.end('Access denied');
