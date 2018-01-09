@@ -41,6 +41,28 @@ var task = cron.schedule(step, function () {
         console.log(downText);
         send(downText);
       }
+
+      var up_30 = result
+        .filter(item => item.percentChange >= 0.3)
+        .filter(item => item.percentChange <= 0.4)
+        .map(item => item.pair);
+
+      if (up_30.length) {
+        var upText = '30 +++' + up.toString();
+        console.log(upText);
+        send(upText);
+      }
+
+      var down_30 = result
+        .filter(item => item.percentChange <= -0.3)
+        .filter(item => item.percentChange >= -0.4)
+        .map(item => item.pair);
+
+      if (down_30.length) {
+        var downText = '30 ---' + down.toString();
+        console.log(downText);
+        send(downText);
+      }
     }
   });
 }, false);
