@@ -11,7 +11,8 @@ var
       'Content-Type': 'application/json',
       'X-Quoine-API-Version': '2'
     },
-    baseUrl: 'https://api.qryptos.com'
+    baseUrl: 'https://api.qryptos.com',
+    json: true
   });
 
 function getOptions(url, payload) {
@@ -38,7 +39,7 @@ var balances = function (callback) {
   var options = getOptions(url, payload);
 
   baseRequest.get(options, function (error, response, body) {
-    callback(JSON.parse(body));
+    callback(body);
   });
 };
 

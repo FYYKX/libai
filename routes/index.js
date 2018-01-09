@@ -19,16 +19,34 @@ router.get('/qash', function (req, res) {
     res.render('qash');
 });
 
-router.get('/qqbp', function (req, res) {
-    res.render('qqbp');
+router.get('/exchange', function (req, res) {
+    res.render('exchange');
 });
 
-router.get('/ticker', function (req, res) {
+router.get('/ticker/poloniex', function (req, res) {
     request.get({
         url: 'https://poloniex.com/public?command=returnTicker',
         json: true
     }, function (error, response, body) {
         res.json(body);
+    });
+});
+
+router.get('/ticker/binance', function (req, res) {
+    request.get({
+        url: 'https://api.binance.com/api/v1/ticker/allPrices',
+        json: true
+    }, function (error, response, body) {
+        res.json(body);
+    });
+});
+
+router.get('/ticker/cmc', function (req, res) {
+    request.get({
+        url: 'https://api.coinmarketcap.com/v1/ticker/',
+        json: true
+    }, function (error, response, body) {
+        res.json(body.reduce((o, a) => Object.assign(o, { [a.symbol]: a.price_usd }), {}));
     });
 });
 
