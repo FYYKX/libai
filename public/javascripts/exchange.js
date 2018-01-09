@@ -72,7 +72,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope) {
         .filter(item => item.free > 0)
         .map(item => {
           return {
-            currency: item.assert,
+            currency: item.asset,
             balance: item.free
           }
         });
