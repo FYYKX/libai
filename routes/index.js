@@ -46,7 +46,14 @@ router.get('/ticker/cmc', function (req, res) {
         url: 'https://api.coinmarketcap.com/v1/ticker/',
         json: true
     }, function (error, response, body) {
-        res.json(body.reduce((o, a) => Object.assign(o, { [a.symbol]: a.price_usd }), {}));
+        res.json(body.reduce((o, a) =>
+            Object.assign(o,
+                {
+                    [a.symbol]: {
+                        price: a.price_usd,
+                        percent_change_24h: a.percent_change_24h
+                    }
+                }), {}));
     });
 });
 

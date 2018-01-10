@@ -83,7 +83,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope) {
   $http.get('ticker/cmc')
     .then(function (response) {
       $scope.ticker = response.data;
-      $scope.total_ico = $scope.ico * response.data.ETH;
+      $scope.total_ico = $scope.ico * response.data.ETH.price;
     }, function (response) {
       console.log(response);
     });
