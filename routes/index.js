@@ -3,7 +3,7 @@ var async = require('async');
 var request = require('request');
 var router = express.Router();
 
-router.get('/', function (req, res) {
+router.get('/bitfinex', function (req, res) {
     res.render('index');
 });
 
@@ -19,7 +19,7 @@ router.get('/qash', function (req, res) {
     res.render('qash');
 });
 
-router.get('/exchange', function (req, res) {
+router.get(['/', '/exchange'], function (req, res) {
     res.render('exchange');
 });
 
