@@ -64,7 +64,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
       .map(item => {
         return {
           currency: item,
-          balance: r.poloniex.data[item]
+          balance: parseFloat(r.poloniex.data[item].available) + parseFloat(r.poloniex.data[item].onOrders)
         }
       })
       .filter(item => item.balance > 0);
