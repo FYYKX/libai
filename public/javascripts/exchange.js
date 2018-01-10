@@ -2,7 +2,7 @@
 
 var app = angular.module('app', []);
 
-app.controller('balancesController', function ($scope, $http, $rootScope) {
+app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.ico = 32.8;
   $scope.total_quoine = 0;
   $scope.total_qryptos = 0;
@@ -27,71 +27,60 @@ app.controller('balancesController', function ($scope, $http, $rootScope) {
     $scope.total_exchange += $scope.total_binance;
   });
 
-  $http.get('balances/quoinex')
-    .then(function (response) {
-      $scope.balance_quoinex = response.data.filter(item => item.balance > 0);
-    }, function (response) {
-      console.log(response);
-    });
-  $http.get('balances/qryptos')
-    .then(function (response) {
-      $scope.balance_qryptos = response.data.filter(item => item.balance > 0);
-    }, function (response) {
-      console.log(response);
-    });
-  $http.get('balances/bitfinex')
-    .then(function (response) {
-      $scope.balance_bitfinex = response.data
-        .filter(item => item.type == 'exchange')
-        .filter(item => item.amount > 0)
-        .map(item => {
-          return {
-            currency: item.currency.toUpperCase(),
-            balance: item.amount
-          }
-        });
-    }, function (response) {
-      console.log(response);
-    });
-  $http.get('balances/poloniex')
-    .then(function (response) {
-      $scope.balance_poloniex = Object.keys(response.data)
-        .map(item => {
-          return {
-            currency: item,
-            balance: response.data[item]
-          }
-        })
-        .filter(item => item.balance > 0);
-    }, function (response) {
-      console.log(response);
-    });
-  $http.get('balances/binance')
-    .then(function (response) {
-      $scope.balance_binance = response.data.balances
-        .filter(item => item.free > 0)
-        .map(item => {
-          return {
-            currency: item.asset,
-            balance: item.free
-          }
-        });
-    }, function (response) {
-      console.log(response);
-    });
+  let quoine = $http.get('balances/quoinex');
+  let qryptos = $http.get('balances/qryptos');
+  let bitfinex = $http.get('balances/bitfinex');
+  let poloniex = $http.get('balances/poloniex');
+  let binance = $http.get('balances/binance');
 
-  $http.get('ticker/cmc')
-    .then(function (response) {
-      $scope.ticker = response.data;
-      $scope.total_ico = $scope.ico * response.data.ETH.price;
-    }, function (response) {
-      console.log(response);
-    });
+  let cmc = $http.get('ticker/cmc');
+  let na = $http.get('ticker/na');
 
-  $http.get('ticker/na')
-    .then(function (response) {
-      $scope.ticker_na = response.data;
-    }, function (response) {
-      console.log(response);
-    });
+  $q.all({
+    quoine,
+    qryptos,
+    bitfinex,
+    poloniex,
+    binance,
+    cmc,
+    na
+  }).then(r => {
+    console.log(r);
+    $scope.balance_quoinex = r.quoine.data.filter(item => item.balance > 0);
+
+    $scope.balance_qryptos = r.qryptos.data.filter(item => item.balance > 0);
+
+    $scope.balance_bitfinex = r.bitfinex.data
+      .filter(item => item.type == 'exchange')
+      .filter(item => item.amount > 0)
+      .map(item => {
+        return {
+          currency: item.currency.toUpperCase(),
+          balance: item.amount
+        }
+      });
+
+    $scope.balance_poloniex = Object.keys(r.poloniex.data)
+      .map(item => {
+        return {
+          currency: item,
+          balance: r.poloniex.data[item]
+        }
+      })
+      .filter(item => item.balance > 0);
+
+    $scope.balance_binance = r.binance.data.balances
+      .filter(item => item.free > 0)
+      .map(item => {
+        return {
+          currency: item.asset,
+          balance: item.free
+        }
+      });
+
+    $scope.ticker = r.cmc.data;
+    $scope.total_ico = $scope.ico * r.cmc.data.ETH.price;
+
+    $scope.ticker_na = r.na.data;
+  })
 });
