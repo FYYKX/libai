@@ -8,8 +8,8 @@ app.controller('balancesController', function ($scope, $http, $rootScope) {
   $scope.total_qryptos = 0;
   $scope.total_bitfinex = 0;
   $scope.total_poloniex = 0;
-  $scope.total_binance = 0;  
-  
+  $scope.total_binance = 0;
+
   $scope.total_exchange = 0;
   $scope.$watch('total_quoine', function () {
     $scope.total_exchange += $scope.total_quoine;
@@ -84,6 +84,13 @@ app.controller('balancesController', function ($scope, $http, $rootScope) {
     .then(function (response) {
       $scope.ticker = response.data;
       $scope.total_ico = $scope.ico * response.data.ETH.price;
+    }, function (response) {
+      console.log(response);
+    });
+
+  $http.get('ticker/na')
+    .then(function (response) {
+      $scope.ticker_na = response.data;
     }, function (response) {
       console.log(response);
     });

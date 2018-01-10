@@ -57,4 +57,31 @@ router.get('/ticker/cmc', function (req, res) {
     });
 });
 
+router.get('/ticker/na', function (req, res) {
+    async.parallel({
+        LRC: function (callback) {
+            request.get({
+                url: "https://api.coinmarketcap.com/v1/ticker/loopring/",
+                json: true,
+            }, function (error, response, body) {
+                var data = body[0];
+                data.price = parseFloat(data.price_usd);
+                callback(null, data);
+            });
+        },
+        STORJ: function (callback) {
+            request.get({
+                url: "https://api.coinmarketcap.com/v1/ticker/storj/",
+                json: true
+            }, function (error, response, body) {
+                var data = body[0];
+                data.price = parseFloat(data.price_usd);
+                callback(null, data);
+            });
+        }
+    }, function (err, results) {
+        res.json(results);
+    });
+});
+
 module.exports = router;
