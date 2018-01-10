@@ -110,7 +110,7 @@
                                     <td>{{balance.currency}}</td>
                                     <td>{{balance.balance}}</td>
                                     <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : 1); $parent.total_quoine = $parent.total_quoine + item">{{item}}</td>
-                                    <td ng-class="ticker[balance.currency].percent_change_24h > 0 ? 'success' : 'danger'">{{ticker[balance.currency].percent_change_24h}}%</td>
+                                    <td ng-class="ticker[balance.currency] ? (ticker[balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency].percent_change_24h}}%</td>
                                 </tr>
                                 <tr class="info">
                                     <td colspan="2">Total</td>
@@ -162,7 +162,7 @@
                                     <td>{{balance.currency}}</td>
                                     <td>{{balance.balance}}</td>
                                     <td ng-init="item = balance.balance * (ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency] ? ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].price : 1); $parent.total_bitfinex = $parent.total_bitfinex + item">{{item}}</td>
-                                    <td ng-class="ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].percent_change_24h > 0 ? 'success' : 'danger'">{{ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].percent_change_24h}}%</td>
+                                    <td ng-class="ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency] ? (ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].percent_change_24h}}%</td>
                                 </tr>
                                 <tr class="info">
                                     <td colspan="2">Total</td>
