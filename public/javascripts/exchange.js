@@ -9,6 +9,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.total_bitfinex = 0;
   $scope.total_poloniex = 0;
   $scope.total_binance = 0;
+  $scope.total_hitbtc = 0;
 
   $scope.total_exchange = 0;
   $scope.$watch('total_quoine', function () {
@@ -26,12 +27,16 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.$watch('total_binance', function () {
     $scope.total_exchange += $scope.total_binance;
   });
+  $scope.$watch('total_hitbtc', function () {
+    $scope.total_exchange += $scope.total_hitbtc;
+  });
 
   let quoine = $http.get('balances/quoinex');
   let qryptos = $http.get('balances/qryptos');
   let bitfinex = $http.get('balances/bitfinex');
   let poloniex = $http.get('balances/poloniex');
   let binance = $http.get('balances/binance');
+  let hitbtc = $http.get('balances/hitbtc');
 
   let cmc = $http.get('ticker/cmc');
   let na = $http.get('ticker/na');
@@ -42,6 +47,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     bitfinex,
     poloniex,
     binance,
+    hitbtc,
     cmc,
     na
   }).then(r => {
@@ -75,6 +81,15 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
         return {
           currency: item.asset,
           balance: parseFloat(item.free) + parseFloat(item.locked)
+        }
+      });
+
+    $scope.balance_hitbtc = r.hitbtc.data
+      .filter(item => item.available > 0 || item.reserved > 0)
+      .map(item => {
+        return {
+          currency: item.currency,
+          balance: parseFloat(item.available) + parseFloat(item.reserved)
         }
       });
 
