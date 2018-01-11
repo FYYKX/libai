@@ -74,7 +74,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
       .map(item => {
         return {
           currency: item.asset,
-          balance: item.free
+          balance: parseFloat(item.free) + parseFloat(item.locked)
         }
       });
 
