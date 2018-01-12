@@ -48,7 +48,7 @@ var task = cron.schedule(step, function () {
         .map(item => item.pair);
 
       if (up_30.length) {
-        var upText = '30 +++' + up.toString();
+        var upText = '30 +++' + up_30.toString();
         console.log(upText);
         send(upText);
       }
@@ -59,7 +59,7 @@ var task = cron.schedule(step, function () {
         .map(item => item.pair);
 
       if (down_30.length) {
-        var downText = '30 ---' + down.toString();
+        var downText = '30 ---' + down_30.toString();
         console.log(downText);
         send(downText);
       }
