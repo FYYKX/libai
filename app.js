@@ -18,7 +18,8 @@ var cron = require('./routes/cron');
 var index = require('./routes/index');
 var config = require('./config');
 
-cron.task.start();
+cron.task_poloniex.start();
+cron.task_cmc.start();
 
 var app = express();
 

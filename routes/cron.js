@@ -5,7 +5,7 @@ var nodemailer = require('nodemailer');
 var step = '*/30 * * * *';
 // step = '*/5 * * * * *';
 
-var task = cron.schedule(step, function () {
+var task_poloniex = cron.schedule(step, function () {
   request.get({
     url: 'https://poloniex.com/public?command=returnTicker',
     json: true
@@ -41,25 +41,35 @@ var task = cron.schedule(step, function () {
         console.log(downText);
         send(downText);
       }
+    }
+  });
+}, false);
 
-      var up_30 = result
-        .filter(item => item.percentChange >= 0.3)
-        .filter(item => item.percentChange <= 0.4)
-        .map(item => item.pair);
+var watch = ['BTC', 'XRP', 'ETH', 'XMR', 'REP', 'XLM'];
+var task_cmc = cron.schedule('*/15 * * * *', function () {
+  request.get({
+    url: 'https://api.coinmarketcap.com/v1/ticker/',
+    json: true
+  }, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      body = body.filter(item => watch.indexOf(item.symbol) > -1);
 
-      if (up_30.length) {
-        var upText = '30 +++' + up_30.toString();
+      var up = body
+        .filter(item => item.percent_change_1h >= 20)
+        .map(item => item.symbol);
+
+      if (up.length) {
+        var upText = '1h 20 +++' + up.toString();
         console.log(upText);
         send(upText);
       }
 
-      var down_30 = result
-        .filter(item => item.percentChange <= -0.3)
-        .filter(item => item.percentChange >= -0.4)
-        .map(item => item.pair);
+      var down = body
+        .filter(item => item.percent_change_1h <= -20)
+        .map(item => item.symbol);
 
-      if (down_30.length) {
-        var downText = '30 ---' + down_30.toString();
+      if (down.length) {
+        var downText = '1h 20 ---' + down.toString();
         console.log(downText);
         send(downText);
       }
@@ -91,5 +101,6 @@ function send(text) {
 }
 
 module.exports = {
-  task: task
+  task_poloniex: task_poloniex,
+  task_cmc: task_cmc
 };
