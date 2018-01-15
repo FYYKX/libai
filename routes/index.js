@@ -138,6 +138,16 @@ router.get('/ticker/na', function (req, res) {
         data.price = parseFloat(data.price_usd);
         callback(null, data);
       });
+    },
+    INS: function (callback) {
+      request.get({
+        url: "https://api.coinmarketcap.com/v1/ticker/ins-ecosystem/",
+        json: true
+      }, function (error, response, body) {
+        var data = body[0];
+        data.price = parseFloat(data.price_usd);
+        callback(null, data);
+      });
     }
   }, function (err, results) {
     res.json(results);
