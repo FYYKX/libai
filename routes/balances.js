@@ -57,11 +57,11 @@ router.get('/qqbp', function (req, res) {
       poloniex.balances(function (body) {
         var data = {
           "exchange": "poloniex",
-          "usd": body.USDT,
+          "usd": parseFloat(body.USDT.available) + parseFloat(body.USDT.onOrders),
           "sgd": 0,
-          "eth": body.ETH,
+          "eth": parseFloat(body.ETH.available) + parseFloat(body.ETH.onOrders),
           "qash": 0,
-          "btc": body.BTC
+          "btc": parseFloat(body.BTC.available) + parseFloat(body.BTC.onOrders)
         };
         callback(null, data);
       });
