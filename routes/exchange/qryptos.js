@@ -54,7 +54,7 @@ var executions = function (product_id, callback) {
   var options = getOptions(url, payload);
 
   baseRequest.get(options, function (error, response, body) {
-    callback(JSON.parse(body));
+    callback(body);
   });
 };
 
@@ -70,7 +70,7 @@ var orders = function (callback) {
   var options = getOptions(url, payload);
 
   baseRequest.get(options, function (error, response, body) {
-    callback(JSON.parse(body));
+    callback(body);
   });
 };
 
@@ -90,7 +90,7 @@ var createOrder = function (amount, price, side, callback) {
   var options = getOptions(url, payload);
 
   baseRequest.post(options, function (error, response, body) {
-    callback(JSON.parse(body));
+    callback(body);
   });
 };
 
@@ -105,7 +105,7 @@ var cancelOrder = function (id, callback) {
   var options = getOptions(url, payload);
 
   baseRequest.put(options, function (error, response, body) {
-    callback(JSON.parse(body));
+    callback(body);
   });
 };
 
