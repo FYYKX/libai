@@ -10,7 +10,7 @@
     <div class="container">
       <div ng-controller="balancesController">
         <h1>Exchange Balanace Table</h1>
-        <button type="button" class="btn btn-primary" ng-click="loadBalance()">Refresh</button>
+        <button type="button" class="btn btn-primary" ng-click="loadBalance()" id="balance" data-loading-text="Loading...">Refresh</button>
         <table class="table">
           <thead>
             <tr>
@@ -37,7 +37,7 @@
 
       <div ng-controller="bookController">
         <h1>Book QASHETH</h1>
-        <button type="button" class="btn btn-primary" ng-click="loadBook()">Refresh</button>
+        <button type="button" class="btn btn-primary" ng-click="loadBook()" id="book" data-loading-text="Loading...">Refresh</button>
         <table class="table table-striped">
           <thead>
             <tr>
@@ -68,7 +68,7 @@
 
       <div ng-controller="orderController">
         <h1>Live Orders Table</h1>
-        <button type="button" class="btn btn-primary" ng-click="loadOrder()">Refresh</button>
+        <button type="button" class="btn btn-primary" ng-click="loadOrder()" id="order" data-loading-text="Loading...">Refresh</button>
         <table class="table table-striped">
           <thead>
             <tr>
@@ -148,7 +148,7 @@
 
       <div ng-controller="tradeController">
         <h1>Historical Trades Table</h1>
-        <button type="button" class="btn btn-primary" ng-click="loadTrades()">Refresh</button>
+        <button type="button" class="btn btn-primary" ng-click="loadTrades()" id="trade" data-loading-text="Loading...">Refresh</button>
         <table class="table table-striped">
           <thead>
             <tr>

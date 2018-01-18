@@ -4,12 +4,14 @@ var app = angular.module('app', []);
 
 app.controller('balancesController', function ($scope, $http, $rootScope) {
   var data = function () {
+    var $btn = $('#balance').button('loading'); 
     $scope.total_usd = 0;
     $scope.total_ethereum = 0;
 
     $http.get('balances/qqbp')
       .then(function (response) {
         $scope.balances = response.data;
+        $btn.button('reset');
       }, function (response) {
         console.log(response);
       });
@@ -22,6 +24,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope) {
 
 app.controller('bookController', function ($scope, $http) {
   $scope.loadBook = function () {
+    var $btn = $('#book').button('loading');
     $scope.total_usd = 0;
     $scope.total_ethereum = 0;
 
@@ -47,6 +50,7 @@ app.controller('bookController', function ($scope, $http) {
           ticker[i].sp = ((ticker[i].spread / ticker[i].bid) * 100).toFixed(2) + "%";
         }
         $scope.books = ticker;
+        $btn.button('reset');
       }, function (response) {
         console.log(response);
       });
@@ -55,17 +59,21 @@ app.controller('bookController', function ($scope, $http) {
 
 app.controller('orderController', function ($scope, $http) {
   $scope.loadOrder = function () {
+    var $btn = $('#order').button('loading');
     $http.get('liveorders/quoinex')
       .then(function (response) {
         $scope.quoinex_orders = response.data.models;
+        $btn.button('reset');
       });
     $http.get('liveorders/qryptos')
       .then(function (response) {
         $scope.qryptos_orders = response.data.models;
+        $btn.button('reset');
       });
     $http.get('liveorders/bitfinex')
       .then(function (response) {
         $scope.bitfinex_orders = response.data;
+        $btn.button('reset');
       });
   };
   $scope.cancelOrder = function (exchange, index) {
@@ -97,17 +105,21 @@ app.controller('orderController', function ($scope, $http) {
 
 app.controller('tradeController', function ($scope, $http) {
   $scope.loadTrades = function () {
+    var $btn = $('#trade').button('loading');
     $http.get('trades/quoinex/51')
       .then(function (response) {
         $scope.quoinex_trades = response.data.models;
+        $btn.button('reset');
       });
     $http.get('trades/qryptos/31')
       .then(function (response) {
         $scope.qryptos_trades = response.data.models;
+        $btn.button('reset');
       });
     $http.get('trades/bitfinex/QSHETH')
       .then(function (response) {
         $scope.bitfinex_trades = response.data;
+        $btn.button('reset');
       });
   };
 });
