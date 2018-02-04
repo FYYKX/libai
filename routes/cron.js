@@ -87,7 +87,7 @@ function send(text) {
   });
 
   var mailOptions = {
-    to: 'ps19880624@gmail.com,lvkangxi@gmail.com',
+    to: 'ps19880624@gmail.com,lvkangxi@gmail.com,billy.wangyi@gmail.com',
     subject: text
   };
 
