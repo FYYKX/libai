@@ -3,7 +3,7 @@
 var app = angular.module('app', []);
 
 app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
-  $scope.ico = 32.8;
+  $scope.ico = 29.8;
   $scope.total_quoine = 0;
   $scope.total_qryptos = 0;
   $scope.total_bitfinex = 0;
