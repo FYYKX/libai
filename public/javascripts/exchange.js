@@ -12,6 +12,8 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.total_binance = 0;
   $scope.total_hitbtc = 0;
 
+  $scope.total_usd = 0;
+
   $scope.total_exchange = -15000;
   $scope.$watch('total_quoine', function () {
     $scope.total_exchange += $scope.total_quoine;
@@ -97,6 +99,11 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     $scope.ticker = r.cmc.data;
     $scope.total_ico = $scope.ico * r.cmc.data.ETH.price;
     $scope.total_billy = $scope.billy * r.cmc.data.ETH.price;
+
+    $scope.total_usd = parseFloat($scope.balance_quoinex.find(i => i.currency == "USD").balance)
+     + parseFloat($scope.balance_bitfinex.find(i => i.currency == "USD").balance)
+     + parseFloat($scope.balance_poloniex.find(i => i.currency == "USDT").balance)
+     + parseFloat($scope.balance_binance.find(i => i.currency == "USDT").balance);
 
     $scope.ticker_na = r.na.data;
   })

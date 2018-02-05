@@ -110,7 +110,23 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="label quoine">quoine</h3>
+                        <h2>USD</h2>
+                        <h1>
+                            <span class="label label-success">{{total_usd}}</span>
+                        </h1>
+                        <h2>{{total_usd / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <h2>Crypto</h2>
+                        <h1>
+                            <span class="label label-info">{{total_exchange + total_ico + total_billy - total_usd}}</span>        
+                        </h1>
+                        <h2>{{(total_exchange + total_ico + total_billy - total_usd) / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="label quoine">quoinex</h3>
                         <table class="table">
                             <thead>
                                 <tr>
