@@ -3,7 +3,8 @@
 var app = angular.module('app', []);
 
 app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
-  $scope.ico = 29.8;
+  $scope.ico = 34.8;
+  $scope.billy = -5;
   $scope.total_quoine = 0;
   $scope.total_qryptos = 0;
   $scope.total_bitfinex = 0;
@@ -11,7 +12,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.total_binance = 0;
   $scope.total_hitbtc = 0;
 
-  $scope.total_exchange = 0;
+  $scope.total_exchange = -15000;
   $scope.$watch('total_quoine', function () {
     $scope.total_exchange += $scope.total_quoine;
   });
@@ -95,6 +96,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
 
     $scope.ticker = r.cmc.data;
     $scope.total_ico = $scope.ico * r.cmc.data.ETH.price;
+    $scope.total_billy = $scope.billy * r.cmc.data.ETH.price;
 
     $scope.ticker_na = r.na.data;
   })
