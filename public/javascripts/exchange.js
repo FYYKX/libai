@@ -14,7 +14,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
 
   $scope.total_usd = 0;
 
-  $scope.total_exchange = -15000;
+  $scope.total_exchange = -25000;
   $scope.$watch('total_quoine', function () {
     $scope.total_exchange += $scope.total_quoine;
   });
