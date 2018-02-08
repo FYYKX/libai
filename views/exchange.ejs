@@ -141,7 +141,7 @@
                                 <tr ng-repeat="balance in balance_quoinex" ng-class="ticker[balance.currency] ? '' : 'warning'">
                                     <td>{{balance.currency}}</td>
                                     <td>{{balance.balance}}</td>
-                                    <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : ticker[balance.currency] == 'SGD' ? 0.75 : 1); $parent.total_quoine = $parent.total_quoine + item">{{item}}</td>
+                                    <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : balance.currency == 'SGD' ? 0.75 : 1); $parent.total_quoine = $parent.total_quoine + item">{{item}}</td>
                                     <td>{{ticker[balance.currency].price}}</td>
                                     <td ng-class="ticker[balance.currency] ? (ticker[balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency].percent_change_24h}}%</td>
                                 </tr>
