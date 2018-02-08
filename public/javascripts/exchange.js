@@ -4,7 +4,7 @@ var app = angular.module('app', []);
 
 app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.ico = 34.8;
-  $scope.billy = -5;
+  $scope.billy = parseFloat(-5 - 5 - 8.74971586).toFixed(4);
   $scope.total_quoine = 0;
   $scope.total_qryptos = 0;
   $scope.total_bitfinex = 0;
@@ -14,7 +14,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
 
   $scope.total_usd = 0;
 
-  $scope.total_exchange = -25000;
+  $scope.total_exchange = -10000;
   $scope.$watch('total_quoine', function () {
     $scope.total_exchange += $scope.total_quoine;
   });

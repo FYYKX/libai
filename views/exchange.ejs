@@ -30,9 +30,9 @@
                             <span class="label quoine">quoine</span>
                         </h3>
                         <h3>
-                            <span class="label label-info">{{total_quoine - 25000 | number:2}}</span>
+                            <span class="label label-info">{{total_quoine - 10000 | number:2}}</span>
                         </h3>
-                        <h3>{{(total_quoine - 25000) / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
+                        <h3>{{(total_quoine - 10000) / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
                     </div>
                     <div class="col-md-2">
                         <h3>
@@ -141,13 +141,13 @@
                                 <tr ng-repeat="balance in balance_quoinex" ng-class="ticker[balance.currency] ? '' : 'warning'">
                                     <td>{{balance.currency}}</td>
                                     <td>{{balance.balance}}</td>
-                                    <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : 1); $parent.total_quoine = $parent.total_quoine + item">{{item}}</td>
+                                    <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : ticker[balance.currency] == 'SGD' ? 0.75 : 1); $parent.total_quoine = $parent.total_quoine + item">{{item}}</td>
                                     <td>{{ticker[balance.currency].price}}</td>
                                     <td ng-class="ticker[balance.currency] ? (ticker[balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency].percent_change_24h}}%</td>
                                 </tr>
                                 <tr class="info">
                                     <td colspan="2">Total</td>
-                                    <td>{{total_quoine - 25000}}</td>
+                                    <td>{{total_quoine - 10000}}</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
