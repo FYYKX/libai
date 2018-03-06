@@ -97,15 +97,15 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
       });
 
     $scope.ticker = r.cmc.data;
+    $scope.ticker_na = r.na.data;
+
     $scope.total_ico = $scope.ico * r.cmc.data.ETH.price;
     $scope.total_billy = $scope.billy * r.cmc.data.ETH.price;
 
-    $scope.total_usd = parseFloat($scope.balance_quoinex.find(i => i.currency == "USD").balance)
-      + parseFloat($scope.balance_quoinex.find(i => i.currency == "USD").balance) * 0.75
-      + parseFloat($scope.balance_bitfinex.find(i => i.currency == "USD").balance)
-      + parseFloat($scope.balance_poloniex.find(i => i.currency == "USDT").balance)
-      + parseFloat($scope.balance_binance.find(i => i.currency == "USDT").balance);
-
-    $scope.ticker_na = r.na.data;
-  })
+    $scope.total_usd = parseFloat($scope.balance_quoinex.find(i => i.currency == "USD").balance) +
+      parseFloat($scope.balance_quoinex.find(i => i.currency == "USD").balance) * 0.75 +
+      parseFloat($scope.balance_bitfinex.find(i => i.currency == "USD").balance) +
+      parseFloat($scope.balance_poloniex.find(i => i.currency == "USDT").balance) +
+      parseFloat($scope.balance_binance.find(i => i.currency == "USDT").balance);
+  });
 });
