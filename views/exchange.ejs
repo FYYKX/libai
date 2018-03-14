@@ -110,7 +110,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <h2>USD(SGD)</h2>
+                        <h2>USD</h2>
                         <h1>
                             <span class="label label-info">{{total_usd}}</span>
                         </h1>
@@ -266,33 +266,6 @@
                                     <td colspan="2">Total</td>
                                     <td>{{total_binance}}</td>
                                     <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <h3 class="label hitbtc">hitbtc</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Currency</th>
-                                    <th>Balance</th>
-                                    <th>USD</th>
-                                    <th>Change 24h</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="balance in balance_hitbtc">
-                                    <td>{{balance.currency}}</td>
-                                    <td>{{balance.balance}}</td>
-                                    <td ng-init="item = balance.balance * (ticker[balance.currency].price); $parent.total_hitbtc = $parent.total_hitbtc + item"
-                                        ng-class="item == 0 ? 'danger' : ''">{{item}}</td>
-                                    <td ng-class="ticker[balance.currency] ? (ticker[balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency].percent_change_24h}}%</td>
-                                </tr>
-                                <tr class="info">
-                                    <td colspan="2">Total</td>
-                                    <td>{{total_hitbtc}}</td>
                                     <td></td>
                                 </tr>
                             </tbody>
