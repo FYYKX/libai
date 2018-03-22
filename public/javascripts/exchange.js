@@ -3,6 +3,10 @@
 var app = angular.module('app', []);
 
 app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
+  $scope.ps = 0.5033;
+  $scope.kx = 0.3355;
+  $scope.wy = 0.1612;
+
   $scope.ico = 28.86;
   $scope.billy = -5;
   $scope.total_quoine = 0;
