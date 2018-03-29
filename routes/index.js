@@ -47,13 +47,12 @@ router.get('/ticker/cmc', function (req, res) {
     json: true
   }, function (error, response, body) {
     res.json(body.reduce((o, a) =>
-      Object.assign(o,
-        {
-          [a.symbol]: {
-            price: a.price_usd,
-            percent_change_24h: a.percent_change_24h
-          }
-        }), {}));
+      Object.assign(o, {
+        [a.symbol]: {
+          price: a.price_usd,
+          percent_change_24h: a.percent_change_24h
+        }
+      }), {}));
   });
 });
 
@@ -162,6 +161,63 @@ router.get('/ticker/na', function (req, res) {
     BCPT: function (callback) {
       request.get({
         url: "https://api.coinmarketcap.com/v1/ticker/blockmason/",
+        json: true
+      }, function (error, response, body) {
+        var data = body[0];
+        data.price = parseFloat(data.price_usd);
+        callback(null, data);
+      });
+    }
+  }, function (err, results) {
+    res.json(results);
+  });
+});
+
+router.get('/ticker/ico', function (req, res) {
+  async.parallel({
+    BKX: function (callback) {
+      request.get({
+        url: "https://api.coinmarketcap.com/v1/ticker/bankex/",
+        json: true,
+      }, function (error, response, body) {
+        var data = body[0];
+        data.price = parseFloat(data.price_usd);
+        callback(null, data);
+      });
+    },
+    INS: function (callback) {
+      request.get({
+        url: "https://api.coinmarketcap.com/v1/ticker/ins-ecosystem/",
+        json: true
+      }, function (error, response, body) {
+        var data = body[0];
+        data.price = parseFloat(data.price_usd);
+        callback(null, data);
+      });
+    },
+    CRPT: function (callback) {
+      request.get({
+        url: "https://api.coinmarketcap.com/v1/ticker/crypterium/",
+        json: true
+      }, function (error, response, body) {
+        var data = body[0];
+        data.price = parseFloat(data.price_usd);
+        callback(null, data);
+      });
+    },
+    CHSB: function (callback) {
+      request.get({
+        url: "https://api.coinmarketcap.com/v1/ticker/swissborg/",
+        json: true
+      }, function (error, response, body) {
+        var data = body[0];
+        data.price = parseFloat(data.price_usd);
+        callback(null, data);
+      });
+    },
+    LATX: function (callback) {
+      request.get({
+        url: "https://api.coinmarketcap.com/v1/ticker/latiumx/",
         json: true
       }, function (error, response, body) {
         var data = body[0];
