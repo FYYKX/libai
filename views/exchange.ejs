@@ -2,295 +2,336 @@
 <html lang="en">
 
 <head>
-    <% include ./partials/head %>
+  <% include ./partials/head %>
 </head>
 
 <body ng-app="app">
-    <% include ./partials/nav %>
-        <div class="container">
-            <div ng-controller="balancesController">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="coinmarketcap-currency-widget" data-currency="ethereum" data-base="USD" data-secondary="" data-ticker="true"
-                            data-rank="true" data-marketcap="true" data-volume="true" data-stats="USD" data-statsticker="false"></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="coinmarketcap-currency-widget" data-currency="bitcoin" data-base="USD" data-secondary="" data-ticker="true" data-rank="true"
-                            data-marketcap="true" data-volume="true" data-stats="USD" data-statsticker="false"></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="coinmarketcap-currency-widget" data-currency="qash" data-base="USD" data-secondary="" data-ticker="true" data-rank="true"
-                            data-marketcap="true" data-volume="true" data-stats="USD" data-statsticker="false"></div>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-2">
-                        <h3>
-                            <span class="label quoine">quoine</span>
-                        </h3>
-                        <h3>
-                            <span class="label label-info">{{total_quoine | number:2}}</span>
-                        </h3>
-                        <h3>{{total_quoine / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
-                    </div>
-                    <div class="col-md-2">
-                        <h3>
-                            <span class="label qryptos">qryptos</span>
-                        </h3>
-                        <h3>
-                            <span class="label label-info">{{total_qryptos | number:2}}</span>
-                        </h3>
-                        <h3>{{total_qryptos / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
-                    </div>
-                    <div class="col-md-2">
-                        <h3>
-                            <span class="label bitfinex">bitfinex</span>
-                        </h3>
-                        <h3>
-                            <span class="label label-info">{{total_bitfinex | number:2}}</span>
-                        </h3>
-                        <h3>{{total_bitfinex / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
-                    </div>
-                    <div class="col-md-2">
-                        <h3>
-                            <span class="label poloniex">poloniex</span>
-                        </h3>
-                        <h3>
-                            <span class="label label-info">{{total_poloniex | number:2}}</span>
-                        </h3>
-                        <h3>{{total_poloniex / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
-                    </div>
-                    <div class="col-md-2">
-                        <h3>
-                            <span class="label binance">binance</span>
-                        </h3>
-                        <h3>
-                            <span class="label label-info">{{total_binance | number:2}}</span>
-                        </h3>
-                        <h3>{{total_binance / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <h2>Exchange</h2>
-                        <h1>
-                            <span class="label label-default">{{total_exchange | number:2}}</span>
-                        </h1>
-                        <h2>{{total_exchange / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h2>
-                    </div>
-                    <div class="col-md-3">
-                        <h2>ICO({{ico}} ETH)</h2>
-                        <h1>
-                            <span class="label label-default">{{total_ico | number:2}}</span>
-                        </h1>
-                        <h2>{{total_ico / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h2>
-                    </div>
-                    <div class="col-md-3">
-                        <h2>Billy({{billy}} ETH)</h2>
-                        <h1>
-                            <span class="label label-default">{{total_billy | number:2}}</span>
-                        </h1>
-                    </div>
-                    <div class="col-md-3">
-                        <h2>Total</h2>
-                        <h1>
-                            <span class="label label-default">{{total_exchange + total_ico + total_billy | number:2}}</span>
-                        </h1>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <h3>PS</h3>
-                        <h3>
-                            <span class="label label-info">{{(total_exchange + total_ico + total_billy) * ps | number:2}}</span>
-                        </h3>
-                        <h3>{{ps * 100 | number:2}}%</h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>KX</h3>
-                        <h3>
-                            <span class="label label-info">{{(total_exchange + total_ico + total_billy) * kx | number:2}}</span>        
-                        </h3>
-                        <h3>{{kx * 100 | number:2}}%</h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>WY</h3>
-                        <h3>
-                            <span class="label label-info">{{(total_exchange + total_ico + total_billy) * wy - total_billy | number:2}}</span>        
-                        </h3>
-                        <h3>{{wy * 100 | number:2}}% + 5ETH</h3>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-6">
-                        <h2>USD</h2>
-                        <h1>
-                            <span class="label label-info">{{total_usd | number:2}}</span>
-                        </h1>
-                        <h2>{{total_usd / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h2>
-                    </div>
-                    <div class="col-md-6">
-                        <h2>Crypto</h2>
-                        <h1>
-                            <span class="label label-info">{{total_exchange + total_ico + total_billy - total_usd | number:2}}</span>        
-                        </h1>
-                        <h2>{{(total_exchange + total_ico + total_billy - total_usd) / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3 class="label quoine">quoinex</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Currency</th>
-                                    <th>Balance</th>
-                                    <th>USD</th>
-                                    <th>Price</th>
-                                    <th>Change 24h</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="balance in balance_quoinex" ng-class="ticker[balance.currency] ? '' : 'warning'">
-                                    <td>{{balance.currency}}</td>
-                                    <td>{{balance.balance}}</td>
-                                    <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : balance.currency == 'SGD' ? 0.75 : 1); $parent.total_quoine = $parent.total_quoine + item">{{item}}</td>
-                                    <td>{{ticker[balance.currency].price}}</td>
-                                    <td ng-class="ticker[balance.currency] ? (ticker[balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency].percent_change_24h}}%</td>
-                                </tr>
-                                <tr class="info">
-                                    <td colspan="2">Total</td>
-                                    <td>{{total_quoine}}</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <h3 class="label qryptos">qryptos</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Currency</th>
-                                    <th>Balance</th>
-                                    <th>USD</th>
-                                    <th>Price</th>
-                                    <th>Change 24h</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="balance in balance_qryptos">
-                                    <td>{{balance.currency}}</td>
-                                    <td>{{balance.balance}}</td>
-                                    <td ng-init="item = balance.balance * (ticker[balance.currency == 'VET' ? 'VEN' : balance.currency] ? ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].price : 1); $parent.total_qryptos = $parent.total_qryptos + item">{{item}}</td>
-                                    <td>{{ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].price}}</td>
-                                    <td ng-class="ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].percent_change_24h > 0 ? 'success' : 'danger'">{{ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].percent_change_24h}}%</td>
-                                </tr>
-                                <tr class="info">
-                                    <td colspan="2">Total</td>
-                                    <td>{{total_qryptos}}</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <h3 class="label bitfinex">bitfinex</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Currency</th>
-                                    <th>Balance</th>
-                                    <th>USD</th>
-                                    <th>Price</th>
-                                    <th>Change 24h</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="balance in balance_bitfinex" ng-class="ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency] ? '' : 'warning'">
-                                    <td>{{balance.currency}}</td>
-                                    <td>{{balance.balance}}</td>
-                                    <td ng-init="item = balance.balance * (ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency] ? ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].price : 1); $parent.total_bitfinex = $parent.total_bitfinex + item">{{item}}</td>
-                                    <td>{{ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].price}}</td>
-                                    <td ng-class="ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency] ? (ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].percent_change_24h}}%</td>
-                                </tr>
-                                <tr class="info">
-                                    <td colspan="2">Total</td>
-                                    <td>{{total_bitfinex}}</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <h3 class="label poloniex">poloniex</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Currency</th>
-                                    <th>Balance</th>
-                                    <th>USD</th>
-                                    <th>Price</th>
-                                    <th>Change 24h</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="balance in balance_poloniex" ng-class="balance.currency == 'USDT' ? 'warning' : ''">
-                                    <td>{{balance.currency}}</td>
-                                    <td>{{balance.balance}}</td>
-                                    <td ng-init="item = balance.balance * ticker[balance.currency == 'STR' ? 'XLM' : balance.currency].price; $parent.total_poloniex = $parent.total_poloniex + item">{{item}}</td>
-                                    <td>{{ticker[balance.currency == 'STR' ? 'XLM' : balance.currency].price}}</td>
-                                    <td ng-class="ticker[balance.currency == 'STR' ? 'XLM' : balance.currency].percent_change_24h > 0 ? 'success' : 'danger'">{{ticker[balance.currency == 'STR' ? 'XLM' : balance.currency].percent_change_24h}}%</td>
-                                </tr>
-                                <tr class="info">
-                                    <td colspan="2">Total</td>
-                                    <td>{{total_poloniex}}</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <h3 class="label binance">binance</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Currency</th>
-                                    <th>Balance</th>
-                                    <th>USD</th>
-                                    <th>Price</th>
-                                    <th>Change 24h</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="balance in balance_binance" ng-class="balance.currency == 'USDT' ? 'warning' : ''">
-                                    <td>{{balance.currency}}</td>
-                                    <td>{{balance.balance}}</td>
-                                    <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : ticker_na[balance.currency].price); $parent.total_binance = $parent.total_binance + item"
-                                        ng-class="item == 0 ? 'danger' : ''">{{item}}</td>
-                                    <td>{{ticker[balance.currency] ? ticker[balance.currency].price : ticker_na[balance.currency].price}}</td>
-                                    <td ng-class="(ticker[balance.currency] ? ticker[balance.currency].percent_change_24h : ticker_na[balance.currency].percent_change_24h) > 0 ? 'success' : 'danger'">{{ticker[balance.currency] ? ticker[balance.currency].percent_change_24h : ticker_na[balance.currency].percent_change_24h}}%</td>
-                                </tr>
-                                <tr class="info">
-                                    <td colspan="2">Total</td>
-                                    <td>{{total_binance}}</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+  <% include ./partials/nav %>
+    <div class="container">
+      <div ng-controller="balancesController">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="coinmarketcap-currency-widget" data-currency="ethereum" data-base="USD" data-secondary="" data-ticker="true"
+              data-rank="true" data-marketcap="true" data-volume="true" data-stats="USD" data-statsticker="false"></div>
+          </div>
+          <div class="col-md-4">
+            <div class="coinmarketcap-currency-widget" data-currency="bitcoin" data-base="USD" data-secondary="" data-ticker="true" data-rank="true"
+              data-marketcap="true" data-volume="true" data-stats="USD" data-statsticker="false"></div>
+          </div>
+          <div class="col-md-4">
+            <div class="coinmarketcap-currency-widget" data-currency="qash" data-base="USD" data-secondary="" data-ticker="true" data-rank="true"
+              data-marketcap="true" data-volume="true" data-stats="USD" data-statsticker="false"></div>
+          </div>
         </div>
-        <% include ./partials/script %>
-            <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
-            <script type="text/javascript" src="/javascripts/exchange.js"></script>
+        <br>
+        <div class="row">
+          <div class="col-md-2 col-xs-4">
+            <h3>
+              <span class="label quoine">quoine</span>
+            </h3>
+            <h3>
+              <span class="label label-info">{{total_quoine | number:2}}</span>
+            </h3>
+            <h3>{{total_quoine / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
+          </div>
+          <div class="col-md-2 col-xs-4">
+            <h3>
+              <span class="label qryptos">qryptos</span>
+            </h3>
+            <h3>
+              <span class="label label-info">{{total_qryptos | number:2}}</span>
+            </h3>
+            <h3>{{total_qryptos / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
+          </div>
+          <div class="col-md-2 col-xs-4">
+            <h3>
+              <span class="label bitfinex">bitfinex</span>
+            </h3>
+            <h3>
+              <span class="label label-info">{{total_bitfinex | number:2}}</span>
+            </h3>
+            <h3>{{total_bitfinex / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
+          </div>
+          <div class="col-md-2 col-xs-4">
+            <h3>
+              <span class="label poloniex">poloniex</span>
+            </h3>
+            <h3>
+              <span class="label label-info">{{total_poloniex | number:2}}</span>
+            </h3>
+            <h3>{{total_poloniex / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
+          </div>
+          <div class="col-md-2 col-xs-4">
+            <h3>
+              <span class="label binance">binance</span>
+            </h3>
+            <h3>
+              <span class="label label-info">{{total_binance | number:2}}</span>
+            </h3>
+            <h3>{{total_binance / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
+          </div>
+          <div class="col-md-2 col-xs-4">
+            <h3>
+              <span class="label ico">ico</span>
+            </h3>
+            <h3>
+              <span class="label label-info">{{total_ico | number:2}}</span>
+            </h3>
+            <h3>{{total_ico / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-xs-6">
+            <h2>Exchange</h2>
+            <h1>
+              <span class="label label-default">{{total_exchange | number:2}}</span>
+            </h1>
+            <h2>{{total_exchange / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h2>
+          </div>
+          <div class="col-md-3 col-xs-6">
+            <h2>ICO({{ico}} ETH)</h2>
+            <h1>
+              <span class="label label-default">{{total_ico | number:2}}({{cost_ico | number:2}})</span>
+            </h1>
+            <h2>{{total_ico / (total_exchange + total_ico + total_billy) * 100 | number:2}}%({{total_ico / cost_ico * 100 | number:2}}%)</h2>
+          </div>
+          <div class="col-md-3 col-xs-6">
+            <h2>Billy({{billy}} ETH)</h2>
+            <h1>
+              <span class="label label-default">{{total_billy | number:2}}</span>
+            </h1>
+          </div>
+          <div class="col-md-3 col-xs-6">
+            <h2>Total</h2>
+            <h1>
+              <span class="label label-default">{{total_exchange + total_ico + total_billy | number:2}}</span>
+            </h1>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-md-4 col-xs-4">
+            <h3>PS</h3>
+            <h3>
+              <span class="label label-info">{{(total_exchange + total_ico + total_billy) * ps | number:2}}</span>
+            </h3>
+            <h3>{{ps * 100 | number:2}}%</h3>
+          </div>
+          <div class="col-md-4 col-xs-4">
+            <h3>KX</h3>
+            <h3>
+              <span class="label label-info">{{(total_exchange + total_ico + total_billy) * kx | number:2}}</span>
+            </h3>
+            <h3>{{kx * 100 | number:2}}%</h3>
+          </div>
+          <div class="col-md-4 col-xs-4">
+            <h3>WY</h3>
+            <h3>
+              <span class="label label-info">{{(total_exchange + total_ico + total_billy) * wy - total_billy | number:2}}</span>
+            </h3>
+            <h3>{{wy * 100 | number:2}}% + 5ETH</h3>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-md-6 col-xs-6">
+            <h2>USD</h2>
+            <h1>
+              <span class="label label-info">{{total_usd | number:2}}</span>
+            </h1>
+            <h2>{{total_usd / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h2>
+          </div>
+          <div class="col-md-6 col-xs-6">
+            <h2>Crypto</h2>
+            <h1>
+              <span class="label label-info">{{total_exchange + total_ico + total_billy - total_usd | number:2}}</span>
+            </h1>
+            <h2>{{(total_exchange + total_ico + total_billy - total_usd) / (total_exchange + total_ico + total_billy) * 100 |
+              number:2}}%
+            </h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h3 class="label quoine">quoinex</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Currency</th>
+                  <th>Balance</th>
+                  <th>USD</th>
+                  <th>Price</th>
+                  <th>Change 24h</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="balance in balance_quoinex" ng-class="ticker[balance.currency] ? '' : 'warning'">
+                  <td>{{balance.currency}}</td>
+                  <td>{{balance.balance}}</td>
+                  <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : balance.currency == 'SGD' ? 0.75 : 1); $parent.total_quoine = $parent.total_quoine + item">{{item}}</td>
+                  <td>{{ticker[balance.currency].price}}</td>
+                  <td ng-class="ticker[balance.currency] ? (ticker[balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency].percent_change_24h}}%</td>
+                </tr>
+                <tr class="info">
+                  <td colspan="2">Total</td>
+                  <td>{{total_quoine}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h3 class="label qryptos">qryptos</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Currency</th>
+                  <th>Balance</th>
+                  <th>USD</th>
+                  <th>Price</th>
+                  <th>Change 24h</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="balance in balance_qryptos">
+                  <td>{{balance.currency}}</td>
+                  <td>{{balance.balance}}</td>
+                  <td ng-init="item = balance.balance * (ticker[balance.currency == 'VET' ? 'VEN' : balance.currency] ? ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].price : 1); $parent.total_qryptos = $parent.total_qryptos + item">{{item}}</td>
+                  <td>{{ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].price}}</td>
+                  <td ng-class="ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].percent_change_24h > 0 ? 'success' : 'danger'">{{ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].percent_change_24h}}%</td>
+                </tr>
+                <tr class="info">
+                  <td colspan="2">Total</td>
+                  <td>{{total_qryptos}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h3 class="label bitfinex">bitfinex</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Currency</th>
+                  <th>Balance</th>
+                  <th>USD</th>
+                  <th>Price</th>
+                  <th>Change 24h</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="balance in balance_bitfinex" ng-class="ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency] ? '' : 'warning'">
+                  <td>{{balance.currency}}</td>
+                  <td>{{balance.balance}}</td>
+                  <td ng-init="item = balance.balance * (ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency] ? ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].price : 1); $parent.total_bitfinex = $parent.total_bitfinex + item">{{item}}</td>
+                  <td>{{ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].price}}</td>
+                  <td ng-class="ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency] ? (ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency].percent_change_24h}}%</td>
+                </tr>
+                <tr class="info">
+                  <td colspan="2">Total</td>
+                  <td>{{total_bitfinex}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h3 class="label poloniex">poloniex</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Currency</th>
+                  <th>Balance</th>
+                  <th>USD</th>
+                  <th>Price</th>
+                  <th>Change 24h</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="balance in balance_poloniex" ng-class="balance.currency == 'USDT' ? 'warning' : ''">
+                  <td>{{balance.currency}}</td>
+                  <td>{{balance.balance}}</td>
+                  <td ng-init="item = balance.balance * ticker[balance.currency == 'STR' ? 'XLM' : balance.currency].price; $parent.total_poloniex = $parent.total_poloniex + item">{{item}}</td>
+                  <td>{{ticker[balance.currency == 'STR' ? 'XLM' : balance.currency].price}}</td>
+                  <td ng-class="ticker[balance.currency == 'STR' ? 'XLM' : balance.currency].percent_change_24h > 0 ? 'success' : 'danger'">{{ticker[balance.currency == 'STR' ? 'XLM' : balance.currency].percent_change_24h}}%</td>
+                </tr>
+                <tr class="info">
+                  <td colspan="2">Total</td>
+                  <td>{{total_poloniex}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h3 class="label binance">binance</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Currency</th>
+                  <th>Balance</th>
+                  <th>USD</th>
+                  <th>Price</th>
+                  <th>Change 24h</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="balance in balance_binance" ng-class="balance.currency == 'USDT' ? 'warning' : ''">
+                  <td>{{balance.currency}}</td>
+                  <td>{{balance.balance}}</td>
+                  <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : ticker_na[balance.currency].price); $parent.total_binance = $parent.total_binance + item"
+                    ng-class="item == 0 ? 'danger' : ''">{{item}}</td>
+                  <td>{{ticker[balance.currency] ? ticker[balance.currency].price : ticker_na[balance.currency].price}}</td>
+                  <td ng-class="(ticker[balance.currency] ? ticker[balance.currency].percent_change_24h : ticker_na[balance.currency].percent_change_24h) > 0 ? 'success' : 'danger'">{{ticker[balance.currency] ? ticker[balance.currency].percent_change_24h : ticker_na[balance.currency].percent_change_24h}}%</td>
+                </tr>
+                <tr class="info">
+                  <td colspan="2">Total</td>
+                  <td>{{total_binance}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h3 class="label ico">ico</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Currency</th>
+                  <th>Balance</th>
+                  <th>USD</th>
+                  <th>Price</th>
+                  <th>Change 24h</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="balance in balance_ico" ng-class="balance.currency == 'USDT' ? 'warning' : ''">
+                  <td>{{balance.currency}}</td>
+                  <td>{{balance.balance}}</td>
+                  <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : ticker_na[balance.currency].price); $parent.total_ico = $parent.total_ico + item"
+                    ng-class="item == 0 ? 'danger' : ''">{{item}}</td>
+                  <td>{{ticker[balance.currency] ? ticker[balance.currency].price : ticker_na[balance.currency].price}}</td>
+                  <td ng-class="(ticker[balance.currency] ? ticker[balance.currency].percent_change_24h : ticker_na[balance.currency].percent_change_24h) > 0 ? 'success' : 'danger'">{{ticker[balance.currency] ? ticker[balance.currency].percent_change_24h : ticker_na[balance.currency].percent_change_24h}}%</td>
+                </tr>
+                <tr class="info">
+                  <td colspan="2">Total</td>
+                  <td>{{total_ico}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% include ./partials/script %>
+      <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
+      <script type="text/javascript" src="/javascripts/exchange.js"></script>
 </body>
 
 </html>

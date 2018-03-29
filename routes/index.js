@@ -167,14 +167,7 @@ router.get('/ticker/na', function (req, res) {
         data.price = parseFloat(data.price_usd);
         callback(null, data);
       });
-    }
-  }, function (err, results) {
-    res.json(results);
-  });
-});
-
-router.get('/ticker/ico', function (req, res) {
-  async.parallel({
+    },
     BKX: function (callback) {
       request.get({
         url: "https://api.coinmarketcap.com/v1/ticker/bankex/",

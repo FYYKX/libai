@@ -7,13 +7,14 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.kx = 0.3355;
   $scope.wy = 0.1612;
 
-  $scope.ico = 28.86;
+  $scope.ico = 28.96;
   $scope.billy = -5;
   $scope.total_quoine = 0;
   $scope.total_qryptos = 0;
   $scope.total_bitfinex = 0;
   $scope.total_poloniex = 0;
   $scope.total_binance = 0;
+  $scope.total_ico = 0;
 
   $scope.total_usd = 0;
 
@@ -39,6 +40,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   let bitfinex = $http.get('balances/bitfinex');
   let poloniex = $http.get('balances/poloniex');
   let binance = $http.get('balances/binance');
+  let ico = $http.get('balances/ico');
 
   let cmc = $http.get('ticker/cmc');
   let na = $http.get('ticker/na');
@@ -49,10 +51,10 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     bitfinex,
     poloniex,
     binance,
+    ico,
     cmc,
     na
   }).then(r => {
-    console.log(r);
     $scope.balance_quoinex = r.quoine.data.filter(item => item.balance > 0);
 
     $scope.balance_qryptos = r.qryptos.data.filter(item => item.balance > 0);
@@ -85,16 +87,18 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
         }
       });
 
+    $scope.balance_ico = r.ico.data;
+    $scope.cost_ico = $scope.ico * r.cmc.data.ETH.price;
+
     $scope.ticker = r.cmc.data;
     $scope.ticker_na = r.na.data;
 
-    $scope.total_ico = $scope.ico * r.cmc.data.ETH.price;
     $scope.total_billy = $scope.billy * r.cmc.data.ETH.price;
 
     $scope.total_usd = parseFloat($scope.balance_quoinex.find(i => i.currency == "USD").balance) +
       parseFloat($scope.balance_quoinex.find(i => i.currency == "USD").balance) +
       parseFloat($scope.balance_bitfinex.find(i => i.currency == "USD").balance) +
-      // parseFloat($scope.balance_poloniex.find(i => i.currency == "USDT").balance) +
+      parseFloat($scope.balance_poloniex.find(i => i.currency == "USDT").balance) +
       parseFloat($scope.balance_binance.find(i => i.currency == "USDT").balance);
   });
 });
