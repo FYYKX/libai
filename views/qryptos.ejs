@@ -24,7 +24,6 @@
               <th>Filled Quantity</th>
               <th>Updated</th>
               <th>Status</th>
-              <th>Cancel Order</th>
             </tr>
           </thead>
           <tbody>
@@ -36,9 +35,6 @@
               <td>{{order.filled_quantity}}</td>
               <td>{{order.updated_at * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
               <td>{{order.status}}</td>
-              <td>
-                <button class="btn btn-primary" type="button" ng-click="cancelOrder('qryptos', $index)">Cancel</button>
-              </td>
             </tr>
           </tbody>
         </table>

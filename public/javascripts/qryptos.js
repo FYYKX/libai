@@ -19,23 +19,14 @@ app.controller('orderController', function ($scope, $http, $interval) {
                 var now = Date.now();
                 var between = (now - updated) / 1000;
                 console.log(between);
-                if (between < 30) {
-                    var message = order.side + " " + order.currency_pair_code + " " + order.filled_quantity + " " + order.status;
+                if (between < 20) {
+                    var message = order.side + " " + order.currency_pair_code + " " + order.price + " " + order.filled_quantity + " " + order.status;
                     console.log(message);
-                    new Notification(message);
+                    new Notification(order.currency_pair_code, {
+                        body: message,
+                        requireInteraction: true
+                    });
                 }
             });
     }, 10 * 1000);
-
-    $scope.cancelOrder = function (exchange, index) {
-        switch (exchange) {
-            case 'qryptos':
-                var qryptos_id = $scope.orders[index].id;
-                $http.get('cancelorder/qryptos/' + qryptos_id)
-                    .then(function () {
-                        $scope.orders.splice(index, 1);
-                    });
-                break;
-        }
-    };
 });
