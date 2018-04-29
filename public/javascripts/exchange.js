@@ -90,7 +90,13 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     $scope.balance_ico = r.ico.data;
     $scope.cost_ico = $scope.ico * r.cmc.data.ETH.price;
 
+    //Add exception for bitfinex NEC
+    r.cmc.data.NEC = {
+      price: "0",
+      percent_change_24h: "0"
+    };
     $scope.ticker = r.cmc.data;
+
     $scope.ticker_na = r.na.data;
 
     $scope.total_billy = $scope.billy * r.cmc.data.ETH.price;
