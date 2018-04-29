@@ -60,7 +60,7 @@ var executions = function (product_id, callback) {
 
 var orders = function (callback) {
   var verb = 'GET';
-  var url = '/orders?status=live';
+  var url = '/orders?status=filled';
   var payload = {
     'path': url,
     'nonce': Date.now(),

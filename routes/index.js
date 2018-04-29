@@ -19,6 +19,10 @@ router.get('/qash', function (req, res) {
   res.render('qash');
 });
 
+router.get('/qryptos', function (req, res) {
+  res.render('qryptos');
+});
+
 router.get(['/', '/exchange'], function (req, res) {
   res.render('exchange');
 });
