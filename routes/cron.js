@@ -55,21 +55,21 @@ var task_cmc = cron.schedule('*/15 * * * *', function () {
       body = body.filter(item => watch.indexOf(item.symbol) > -1);
 
       var up = body
-        .filter(item => item.percent_change_1h >= 10)
+        .filter(item => item.percent_change_1h >= 7)
         .map(item => item.symbol);
 
       if (up.length) {
-        var upText = '1h 10 +++' + up.toString();
+        var upText = '1h 7% +++' + up.toString();
         console.log(upText);
         send(upText);
       }
 
       var down = body
-        .filter(item => item.percent_change_1h <= -10)
+        .filter(item => item.percent_change_1h <= -7)
         .map(item => item.symbol);
 
       if (down.length) {
-        var downText = '1h 10 ---' + down.toString();
+        var downText = '1h 7% ---' + down.toString();
         console.log(downText);
         send(downText);
       }
