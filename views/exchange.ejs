@@ -166,7 +166,10 @@
                 <tr ng-repeat="balance in balance_quoinex" ng-class="ticker[balance.currency] ? '' : 'warning'">
                   <td>{{balance.currency}}</td>
                   <td>{{balance.balance}}</td>
-                  <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : balance.currency == 'SGD' ? 0.75 : 1); $parent.total_quoine = $parent.total_quoine + item">{{item}}</td>
+                  <td ng-init="item = balance.balance * (
+                    ticker[balance.currency] 
+                  ? ticker[balance.currency].price 
+                  : balance.currency == 'SGD' ? 0.75 : 1); $parent.total_quoine = $parent.total_quoine + item">{{item}}</td>
                   <td>{{ticker[balance.currency].price}}</td>
                   <td ng-class="ticker[balance.currency] ? (ticker[balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency].percent_change_24h}}%</td>
                 </tr>
@@ -180,7 +183,9 @@
             </table>
           </div>
           <div class="col-md-6">
-            <h3 class="label qryptos">qryptos</h3>
+            <h3 class="label qryptos">qryptos
+              <small>Ignore GZE)</small>
+            </h3>
             <table class="table">
               <thead>
                 <tr>
@@ -195,9 +200,14 @@
                 <tr ng-repeat="balance in balance_qryptos">
                   <td>{{balance.currency}}</td>
                   <td>{{balance.balance}}</td>
-                  <td ng-init="item = balance.balance * (ticker[balance.currency == 'VET' ? 'VEN' : balance.currency] ? ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].price : ticker_na[balance.currency == 'VET' ? 'VEN' : balance.currency].price); $parent.total_qryptos = $parent.total_qryptos + item">{{item}}</td>
-                  <td>{{ticker[balance.currency == 'VET' ? 'VEN' : balance.currency] ? ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].price : ticker_na[balance.currency == 'VET' ? 'VEN' : balance.currency].price}}</td>
-                  <td ng-class="(ticker[balance.currency == 'VET' ? 'VEN' : balance.currency] ? ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].percent_change_24h : ticker_na[balance.currency == 'VET' ? 'VEN' : balance.currency].percent_change_24h) > 0 ? 'success' : 'danger'">{{ticker[balance.currency == 'VET' ? 'VEN' : balance.currency] ? ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].percent_change_24h : ticker_na[balance.currency == 'VET' ? 'VEN' : balance.currency].percent_change_24h}}%</td>
+                  <td ng-init="item = balance.balance * (
+                    ticker[balance.currency == 'VET' ? 'VEN' : balance.currency] 
+                    ? ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].price 
+                    : ticker_na[balance.currency == 'VET' ? 'VEN' : balance.currency].price); $parent.total_qryptos = $parent.total_qryptos + item">{{item}}</td>
+                  <td>{{ticker[balance.currency == 'VET' ? 'VEN' : balance.currency] ? ticker[balance.currency == 'VET' ? 'VEN'
+                    : balance.currency].price : ticker_na[balance.currency == 'VET' ? 'VEN' : balance.currency].price}}</td>
+                  <td ng-class="(ticker[balance.currency == 'VET' ? 'VEN' : balance.currency] ? ticker[balance.currency == 'VET' ? 'VEN' : balance.currency].percent_change_24h : ticker_na[balance.currency == 'VET' ? 'VEN' : balance.currency].percent_change_24h) > 0 ? 'success' : 'danger'">{{ticker[balance.currency == 'VET' ? 'VEN' : balance.currency] ? ticker[balance.currency == 'VET' ? 'VEN'
+                    : balance.currency].percent_change_24h : ticker_na[balance.currency == 'VET' ? 'VEN' : balance.currency].percent_change_24h}}%</td>
                 </tr>
                 <tr class="info">
                   <td colspan="2">Total</td>
@@ -224,9 +234,14 @@
                 <tr ng-repeat="balance in balance_bitfinex" ng-class="ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency == 'QTM' ? 'QTUM' : balance.currency] ? '' : 'warning'">
                   <td>{{balance.currency}}</td>
                   <td>{{balance.balance}}</td>
-                  <td ng-init="item = balance.balance * (ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency == 'QTM' ? 'QTUM' : balance.currency] ? ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency == 'QTM' ? 'QTUM' :balance.currency].price : 1); $parent.total_bitfinex = $parent.total_bitfinex + item">{{item}}</td>
-                  <td>{{ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency == 'QTM' ? 'QTUM' : balance.currency].price}}</td>
-                  <td ng-class="ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency == 'QTM' ? 'QTUM' : balance.currency] ? (ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency == 'QTM' ? 'QTUM' : balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency == 'QTM' ? 'QTUM' : balance.currency].percent_change_24h}}%</td>
+                  <td ng-init="item = balance.balance * (
+                    ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency == 'QTM' ? 'QTUM' : balance.currency]
+                     ? ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency == 'QTM' ? 'QTUM' :balance.currency].price 
+                     : 1); $parent.total_bitfinex = $parent.total_bitfinex + item">{{item}}</td>
+                  <td>{{ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency ==
+                    'QTM' ? 'QTUM' : balance.currency].price}}</td>
+                  <td ng-class="ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency == 'QTM' ? 'QTUM' : balance.currency] ? (ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency == 'QTM' ? 'QTUM' : balance.currency].percent_change_24h > 0 ? 'success' : 'danger') : ''">{{ticker[balance.currency == 'IOT' ? 'MIOTA' : balance.currency == 'QSH' ? 'QASH' : balance.currency ==
+                    'QTM' ? 'QTUM' : balance.currency].percent_change_24h}}%</td>
                 </tr>
                 <tr class="info">
                   <td colspan="2">Total</td>
@@ -282,8 +297,9 @@
                 <tr ng-repeat="balance in balance_binance" ng-class="balance.currency == 'USDT' ? 'warning' : ''">
                   <td>{{balance.currency}}</td>
                   <td>{{balance.balance}}</td>
-                  <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : ticker_na[balance.currency].price); $parent.total_binance = $parent.total_binance + item"
-                    ng-class="item == 0 ? 'danger' : ''">{{item}}</td>
+                  <td ng-init="item = balance.balance * (ticker[balance.currency]
+                   ? ticker[balance.currency].price 
+                   : ticker_na[balance.currency].price); $parent.total_binance = $parent.total_binance + item" ng-class="item == 0 ? 'danger' : ''">{{item}}</td>
                   <td>{{ticker[balance.currency] ? ticker[balance.currency].price : ticker_na[balance.currency].price}}</td>
                   <td ng-class="(ticker[balance.currency] ? ticker[balance.currency].percent_change_24h : ticker_na[balance.currency].percent_change_24h) > 0 ? 'success' : 'danger'">{{ticker[balance.currency] ? ticker[balance.currency].percent_change_24h : ticker_na[balance.currency].percent_change_24h}}%</td>
                 </tr>
@@ -312,8 +328,10 @@
                 <tr ng-repeat="balance in balance_ico" ng-class="balance.currency == 'USDT' ? 'warning' : ''">
                   <td>{{balance.currency}}</td>
                   <td>{{balance.balance}}</td>
-                  <td ng-init="item = balance.balance * (ticker[balance.currency] ? ticker[balance.currency].price : ticker_na[balance.currency].price); $parent.total_ico = $parent.total_ico + item"
-                    ng-class="item == 0 ? 'danger' : ''">{{item}}</td>
+                  <td ng-init="item = balance.balance * (
+                    ticker[balance.currency]
+                     ? ticker[balance.currency].price 
+                     : ticker_na[balance.currency].price); $parent.total_ico = $parent.total_ico + item" ng-class="item == 0 ? 'danger' : ''">{{item}}</td>
                   <td>{{ticker[balance.currency] ? ticker[balance.currency].price : ticker_na[balance.currency].price}}</td>
                   <td ng-class="(ticker[balance.currency] ? ticker[balance.currency].percent_change_24h : ticker_na[balance.currency].percent_change_24h) > 0 ? 'success' : 'danger'">{{ticker[balance.currency] ? ticker[balance.currency].percent_change_24h : ticker_na[balance.currency].percent_change_24h}}%</td>
                 </tr>

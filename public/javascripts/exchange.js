@@ -57,7 +57,9 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   }).then(r => {
     $scope.balance_quoinex = r.quoine.data.filter(item => item.balance > 0);
 
-    $scope.balance_qryptos = r.qryptos.data.filter(item => item.balance > 0);
+    $scope.balance_qryptos = r.qryptos.data
+      .filter(item => item.balance > 0)
+      .filter(item => item.currency != 'GZE');
 
     $scope.balance_bitfinex = r.bitfinex.data
       .filter(item => item.type == 'exchange')
