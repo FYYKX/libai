@@ -106,27 +106,33 @@ router.get('/ico', function (req, res) {
   var data = [];
   data.push({
     currency: "BKX",
-    balance: 3300
+    balance: 3300,
+    ico: 6
   });
   data.push({
     currency: "INS",
-    balance: 2214
+    balance: 2214,
+    ico: 6
   });
   data.push({
     currency: "CRPT",
-    balance: 1946.74689
+    balance: 1946.74689,
+    ico: 6
   });
   data.push({
     currency: "CHSB",
-    balance: 42364.95
+    balance: 42364.95,
+    ico: 4
   });
   data.push({
     currency: "LATX",
-    balance: 24024.75
+    balance: 24024.75,
+    ico: 2
   });
   data.push({
     currency: "ETH",
-    balance: 4.96
+    balance: 4.96,
+    ico: 0
   });
   res.json(data);
 });
