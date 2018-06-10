@@ -59,11 +59,13 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
 
     $scope.balance_qryptos = r.qryptos.data
       .filter(item => item.balance > 0)
-      .filter(item => item.currency != 'GZE');
+      .filter(item => item.currency != 'GZE')
+      .filter(item => item.currency != 'PWV');
 
     $scope.balance_bitfinex = r.bitfinex.data
       .filter(item => item.type == 'exchange')
       .filter(item => item.amount > 0)
+      .filter(item => item.currency != 'evt')
       .map(item => {
         return {
           currency: item.currency.toUpperCase(),
