@@ -58,14 +58,11 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     $scope.balance_quoinex = r.quoine.data.filter(item => item.balance > 0);
 
     $scope.balance_qryptos = r.qryptos.data
-      .filter(item => item.balance > 0)
-      .filter(item => item.currency != 'GZE')
-      .filter(item => item.currency != 'PWV');
+      .filter(item => item.balance > 0);
 
     $scope.balance_bitfinex = r.bitfinex.data
       .filter(item => item.type == 'exchange')
       .filter(item => item.amount > 0)
-      .filter(item => item.currency != 'evt')
       .map(item => {
         return {
           currency: item.currency.toUpperCase(),
@@ -93,12 +90,31 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
 
     $scope.balance_ico = r.ico.data;
     $scope.cost_ico = $scope.ico * r.cmc.data.ETH.price;
+    for (var key in r.na.data) {
+      r.cmc.data[key] = r.na.data[key];
+    }
 
-    //Add exception for bitfinex NEC
-    r.cmc.data.NEC = {
-      price: "0",
-      percent_change_24h: "0"
+    var fix = {
+      "AUD": 0.76,
+      "USD": 1,
+      "SGD": 0.75,
+      "GZE": 0,
+      "PWV": 0,
+      "EVT": 0,
     };
+    for (var key in fix) {
+      r.cmc.data[key] = {
+        price: fix[key],
+        percent_change_24h: "0"
+      };
+    }
+
+    r.cmc.data.VET = r.cmc.data.VEN;
+    r.cmc.data.IOT = r.cmc.data.MIOTA;
+    r.cmc.data.QSH = r.cmc.data.QASH;
+    r.cmc.data.QTM = r.cmc.data.QTUM;
+    r.cmc.data.STR = r.cmc.data.XLM;
+
     $scope.ticker = r.cmc.data;
 
     $scope.ticker_na = r.na.data;
