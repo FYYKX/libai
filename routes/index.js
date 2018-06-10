@@ -4,7 +4,7 @@ var request = require('request');
 var router = express.Router();
 
 router.get('/bitfinex', function (req, res) {
-  res.render('index');
+  res.render('bitfinex');
 });
 
 router.get('/eth', function (req, res) {
@@ -23,8 +23,21 @@ router.get('/qryptos', function (req, res) {
   res.render('qryptos');
 });
 
+router.get('/order', function (req, res) {
+  res.render('order');
+});
+
 router.get(['/', '/exchange'], function (req, res) {
   res.render('exchange');
+});
+
+router.get('/products', function (req, res) {
+  request.get({
+    url: 'https://api.qryptos.com/products',
+    json: true
+  }, function (error, response, body) {
+    res.json(body);
+  });
 });
 
 router.get('/ticker/poloniex', function (req, res) {

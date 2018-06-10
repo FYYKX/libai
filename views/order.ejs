@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ./partials/head %>
+</head>
+
+<body ng-app="app">
+    <% include ./partials/nav %>
+        <div class="container">
+            <div ng-controller="balancesController">
+                <h1>Exchange Balanace Table</h1>
+                <button type="button" class="btn btn-primary" ng-click="loadBalance()">Refresh</button>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Currency</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="balance in balances">
+                            <td>{{balance.currency}}</td>
+                            <td>{{balance.balance}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-controller="orderController">
+                <div class="alert alert-danger alert-dismissible" role="alert" ng-show="show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong ng-text="message"></strong>
+                </div>
+                <h1>Order Entry</h1>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="exchange" class="col-sm-2 control-label">Exchange</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="exchange" ng-model="exchange">
+                                <option value="qryptos">Qryptos</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="symbol" class="col-sm-2 control-label">Symbol</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="symbol" ng-model="product_id">
+                                <option ng-repeat="item in symbols | orderBy: 'currency_pair_code'" value="{{item.id}}">{{item.currency_pair_code}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="interval" class="col-sm-2 control-label">Interval</label>
+                        <div class="col-sm-10">
+                            <input type="numbe" class="form-control" id="interval" min="0" ng-model="interval">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="unit" class="col-sm-2 control-label">Unit</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="unit" min="0" ng-model="unit">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="price" class="col-sm-2 control-label">Price</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="price" min="0" ng-model="price">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount" class="col-sm-2 control-label">Amount</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="amount" min="0" ng-model="amount">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-md-5">
+                            <button type="button" class="btn btn-danger btn-block btn-lg" ng-click="newOrder('sell')">SELL</button>
+                        </div>
+                        <div class="col-md-5">
+                            <button type="button" class="btn btn-success btn-block btn-lg" ng-click="newOrder('buy')">BUY</button>
+                        </div>
+                    </div>
+                </form>
+                <h1>Live Orders Table</h1>
+                <button type="button" class="btn btn-primary" ng-click="loadOrder()">Refresh</button>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Order ID</th>
+                            <th>Order Side</th>
+                            <th>Price</th>
+                            <th>Order Status</th>
+                            <th>Filled Amount</th>
+                            <th>Cancel Order</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="order in orders">
+                            <td>{{order.currency_pair_code}}</td>
+                            <td>{{order.id}}</td>
+                            <td>
+                                <span class="label" ng-class="order.side == 'sell' ? 'label-danger' : 'label-success'">{{order.side}}</span>
+                            </td>
+                            <td>{{order.price | number: 8}}</td>
+                            <td>{{order.status}}</td>
+                            <td>{{order.filled_quantity}}</td>
+                            <td>
+                                <button class="btn btn-primary" type="button" ng-click="cancelOrder($index)">Cancel</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <% include ./partials/script %>
+            <script type="text/javascript" src="/javascripts/order.js"></script>
+</body>
+
+</html>
