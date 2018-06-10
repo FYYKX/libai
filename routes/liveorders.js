@@ -8,4 +8,11 @@ router.get('/:exchange', function (req, res) {
     });
 });
 
+router.get('/:exchange/filled', function (req, res) {
+    var exchange = require('./exchange/' + req.params.exchange);
+    exchange.filledorders(function (body) {
+        res.json(body);
+    });
+});
+
 module.exports = router;

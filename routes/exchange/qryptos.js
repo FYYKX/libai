@@ -63,7 +63,21 @@ var executions = function (product_id, callback) {
 
 var liveorders = function (callback) {
   var verb = 'GET';
-  var url = '/orders?&status=live';
+  var url = '/orders?status=live';
+  var payload = {
+    'path': url
+  };
+
+  var options = getOptions(verb, url, payload);
+
+  baseRequest.get(options, function (error, response, body) {
+    callback(JSON.parse(body));
+  });
+};
+
+var filledorders = function (callback) {
+  var verb = 'GET';
+  var url = '/orders?status=filled';
   var payload = {
     'path': url
   };
@@ -114,6 +128,7 @@ module.exports = {
   balances: balances,
   trades: executions,
   liveorders: liveorders,
+  filledorders: filledorders,
   neworder: createOrder,
   cancelorder: cancelOrder
 };

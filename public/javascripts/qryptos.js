@@ -10,7 +10,7 @@ app.controller('orderController', function ($scope, $http, $interval) {
     }
 
     $interval(function () {
-        $http.get('liveorders/qryptos')
+        $http.get('liveorders/qryptos/filled')
             .then(function (response) {
                 var models = response.data.models;
                 $scope.orders = models;
