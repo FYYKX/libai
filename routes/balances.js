@@ -125,13 +125,8 @@ router.get('/ico', function (req, res) {
     ico: 4
   });
   data.push({
-    currency: "LATX",
-    balance: 24024.75,
-    ico: 2
-  });
-  data.push({
     currency: "ETH",
-    balance: 4.96,
+    balance: 4.96 + 3.7230141,
     ico: 0
   });
   res.json(data);
