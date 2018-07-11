@@ -14,6 +14,8 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.total_bitfinex = 0;
   $scope.total_poloniex = 0;
   $scope.total_binance = 0;
+  $scope.total_yobit = 0;
+
   $scope.total_ico = 0;
 
   $scope.total_usd = 0;
@@ -34,12 +36,17 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.$watch('total_binance', function () {
     $scope.total_exchange += $scope.total_binance;
   });
+  $scope.$watch('total_yobit', function () {
+    $scope.total_exchange += $scope.total_yobit;
+  });
 
   let quoine = $http.get('balances/quoinex');
   let qryptos = $http.get('balances/qryptos');
   let bitfinex = $http.get('balances/bitfinex');
   let poloniex = $http.get('balances/poloniex');
   let binance = $http.get('balances/binance');
+  let yobit = $http.get('balances/yobit');
+
   let ico = $http.get('balances/ico');
 
   let cmc = $http.get('ticker/cmc');
@@ -51,6 +58,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     bitfinex,
     poloniex,
     binance,
+    yobit,
     ico,
     cmc,
     na
@@ -87,6 +95,15 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
           balance: parseFloat(item.free) + parseFloat(item.locked)
         }
       });
+
+    $scope.balance_yobit = Object.keys(r.yobit.data.return.funds)
+      .map(item => {
+        return {
+          currency: item.toUpperCase(),
+          balance: r.yobit.data.return.funds[item]
+        }
+      })
+      .filter(item => item.balance > 0);
 
     $scope.balance_ico = r.ico.data;
     $scope.cost_ico = $scope.ico * r.cmc.data.ETH.price;
