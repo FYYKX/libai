@@ -118,6 +118,15 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
       "GZE": 0,
       "PWV": 0,
       "EVT": 0,
+      "FANZ": 0,
+      "ADD": 0,
+      "ATD": 0,
+      "IQX": 0,
+      "MTO": 0,
+      "MEETONE": 0,
+      "EOP": 0,
+      "IQ": 0,
+      "EON": 0
     };
     for (var key in fix) {
       r.cmc.data[key] = {

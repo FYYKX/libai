@@ -304,12 +304,6 @@ router.get('/ticker/na', function (req, res) {
         data.price = parseFloat(data.price_usd);
         callback(null, data);
       });
-    },
-    EON: function (callback) {
-      var data = {
-        price: 0
-      };
-      callback(null, data);
     }
   }, function (err, results) {
     res.json(results);
