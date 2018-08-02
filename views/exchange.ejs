@@ -98,6 +98,15 @@
           </div>
           <div class="col-md-2 col-xs-4">
             <h3>
+              <span class="label bittrex">bittrex</span>
+            </h3>
+            <h3>
+              <span class="label label-info">{{total_bittrex | number:2}}</span>
+            </h3>
+            <h3>{{total_bittrex / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
+          </div>
+          <div class="col-md-2 col-xs-4">
+            <h3>
               <span class="label ico">ico</span>
             </h3>
             <h3>
@@ -406,6 +415,35 @@
                 <tr class="info">
                   <td colspan="2">Total</td>
                   <td>{{total_exmo | number:2}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h3 class="label bittrex">bittrex</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Currency</th>
+                  <th>Balance</th>
+                  <th>USD</th>
+                  <th>Price</th>
+                  <th>Change 24h</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="balance in balance_bittrex">
+                  <td>{{balance.currency}}</td>
+                  <td>{{balance.balance}}</td>
+                  <td ng-init="item = balance.balance * ticker[balance.currency].price; $parent.total_bittrex = $parent.total_bittrex + item">{{item | number:2}}</td>
+                  <td>{{ticker[balance.currency].price}}</td>
+                  <td ng-class="ticker[balance.currency].percent_change_24h > 0 ? 'success' : 'danger'">{{ticker[balance.currency].percent_change_24h}}%</td>
+                </tr>
+                <tr class="info">
+                  <td colspan="2">Total</td>
+                  <td>{{total_bittrex | number:2}}</td>
                   <td></td>
                   <td></td>
                 </tr>

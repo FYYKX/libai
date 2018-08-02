@@ -17,6 +17,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.total_yobit = 0;
   $scope.total_hitbtc = 0;
   $scope.total_exmo = 0;
+  $scope.total_bittrex = 0;
 
   $scope.total_ico = 0;
 
@@ -47,6 +48,9 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.$watch('total_exmo', function () {
     $scope.total_exchange += $scope.total_exmo;
   });
+  $scope.$watch('total_bittrex', function () {
+    $scope.total_exchange += $scope.total_bittrex;
+  });
 
   let quoine = $http.get('balances/quoinex');
   let qryptos = $http.get('balances/qryptos');
@@ -56,6 +60,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   let yobit = $http.get('balances/yobit');
   let hitbtc = $http.get('balances/hitbtc');
   let exmo = $http.get('balances/exmo');
+  let bittrex = $http.get('balances/bittrex');
 
   let ico = $http.get('balances/ico');
 
@@ -71,6 +76,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     yobit,
     hitbtc,
     exmo,
+    bittrex,
     ico,
     cmc,
     na
@@ -135,6 +141,15 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
       })
       .filter(item => item.balance > 0);
 
+    $scope.balance_bittrex = r.bittrex.data.result
+      .map(item => {
+        return {
+          currency: item.Currency,
+          balance: item.Balance
+        }
+      })
+      .filter(item => item.balance > 0);
+
     $scope.balance_ico = r.ico.data;
     $scope.cost_ico = $scope.ico * r.cmc.data.ETH.price;
     for (var key in r.na.data) {
@@ -178,12 +193,10 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     $scope.total_billy = $scope.billy * r.cmc.data.ETH.price;
 
     $scope.total_usd = parseFloat($scope.balance_quoinex.find(i => i.currency == "USD").balance) +
-      parseFloat($scope.balance_quoinex.find(i => i.currency == "USD").balance) +
       parseFloat($scope.balance_bitfinex.find(i => i.currency == "USD").balance) +
       parseFloat($scope.balance_poloniex.find(i => i.currency == "USDT").balance) +
       parseFloat($scope.balance_binance.find(i => i.currency == "USDT").balance) +
       parseFloat($scope.balance_yobit.find(i => i.currency == "USD").balance) +
-      parseFloat($scope.balance_hitbtc.find(i => i.currency == "USD").balance) +
-      parseFloat($scope.balance_exmo.find(i => i.currency == "USD").balance);
+      parseFloat($scope.balance_hitbtc.find(i => i.currency == "USD").balance);
   });
 });
