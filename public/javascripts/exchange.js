@@ -180,7 +180,6 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
       };
     }
 
-    r.cmc.data.VET = r.cmc.data.VEN;
     r.cmc.data.IOT = r.cmc.data.MIOTA;
     r.cmc.data.QSH = r.cmc.data.QASH;
     r.cmc.data.QTM = r.cmc.data.QTUM;

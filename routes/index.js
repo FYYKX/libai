@@ -295,16 +295,6 @@ router.get('/ticker/na', function (req, res) {
         callback(null, data);
       });
     },
-    QASH: function(callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/qash/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
     VET: function (callback) {
       request.get({
         url: "https://api.coinmarketcap.com/v1/ticker/vechain/",
@@ -314,7 +304,17 @@ router.get('/ticker/na', function (req, res) {
         data.price = parseFloat(data.price_usd);
         callback(null, data);
       });
-    }
+    },
+    QASH: function (callback) {
+      request.get({
+        url: "https://api.coinmarketcap.com/v1/ticker/qash/",
+        json: true
+      }, function (error, response, body) {
+        var data = body[0];
+        data.price = parseFloat(data.price_usd);
+        callback(null, data);
+      });
+    },
   }, function (err, results) {
     res.json(results);
   });

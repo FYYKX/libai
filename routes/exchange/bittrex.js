@@ -31,9 +31,7 @@ function getOptions(method) {
 var balances = function (callback) {
     var method = "/account/getbalances";
     var options = getOptions(method);
-    console.log(options);
     baseRequest.post(options, function (error, response, body) {
-        console.log
         callback(body);
     });
 };
