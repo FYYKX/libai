@@ -126,7 +126,7 @@ router.get('/ico', function (req, res) {
   });
   data.push({
     currency: "ETH",
-    balance: 4.96 + 3.7230141,
+    balance: 0,
     ico: 0
   });
   res.json(data);
