@@ -18,6 +18,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.total_hitbtc = 0;
   $scope.total_exmo = 0;
   $scope.total_bittrex = 0;
+  $scope.total_allcoin = 0;
 
   $scope.total_ico = 0;
 
@@ -50,6 +51,9 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   });
   $scope.$watch('total_bittrex', function () {
     $scope.total_exchange += $scope.total_bittrex;
+  });
+  $scope.$watch('total_allcoin', function () {
+    $scope.total_exchange += $scope.total_allcoin;
   });
 
   let quoine = $http.get('balances/quoinex');
@@ -149,6 +153,17 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
         }
       })
       .filter(item => item.balance > 0);
+
+    $scope.balance_allcoin = [
+      {
+        currency: "ETH",
+        balance: 9.8843
+      },
+      {
+        currency: "BTC",
+        balance: 0.0016
+      }
+    ];
 
     $scope.balance_ico = r.ico.data;
     $scope.cost_ico = $scope.ico * r.cmc.data.ETH.price;

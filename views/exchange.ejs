@@ -107,6 +107,15 @@
           </div>
           <div class="col-md-2 col-xs-4">
             <h3>
+              <span class="label allcoin">allcoin</span>
+            </h3>
+            <h3>
+              <span class="label label-info">{{total_allcoin | number:2}}</span>
+            </h3>
+            <h3>{{total_allcoin / (total_exchange + total_ico + total_billy) * 100 | number:2}}%</h3>
+          </div>
+          <div class="col-md-2 col-xs-4">
+            <h3>
               <span class="label ico">ico</span>
             </h3>
             <h3>
@@ -191,8 +200,8 @@
               <thead>
                 <tr>
                   <th>Currency</th>
-                  <th>Amount</th>
                   <th>Balance</th>
+                  <th>USD</th>
                   <th>Price</th>
                   <th>Change 24h</th>
                 </tr>
@@ -220,8 +229,8 @@
               <thead>
                 <tr>
                   <th>Currency</th>
-                  <th>Amount</th>
                   <th>Balance</th>
+                  <th>USD</th>
                   <th>Price</th>
                   <th>Change 24h</th>
                 </tr>
@@ -243,16 +252,14 @@
               </tbody>
             </table>
           </div>
-        </div>
-        <div class="row">
           <div class="col-md-6">
             <h3 class="label bitfinex">bitfinex</h3>
             <table class="table">
               <thead>
                 <tr>
                   <th>Currency</th>
-                  <th>Amount</th>
                   <th>Balance</th>
+                  <th>USD</th>
                   <th>Price</th>
                   <th>Change 24h</th>
                 </tr>
@@ -280,8 +287,8 @@
               <thead>
                 <tr>
                   <th>Currency</th>
-                  <th>Amount</th>
                   <th>Balance</th>
+                  <th>USD</th>
                   <th>Price</th>
                   <th>Change 24h</th>
                 </tr>
@@ -303,16 +310,14 @@
               </tbody>
             </table>
           </div>
-        </div>
-        <div class="row">
           <div class="col-md-6">
             <h3 class="label binance">binance</h3>
             <table class="table">
               <thead>
                 <tr>
                   <th>Currency</th>
-                  <th>Amount</th>
                   <th>Balance</th>
+                  <th>USD</th>
                   <th>Price</th>
                   <th>Change 24h</th>
                 </tr>
@@ -340,8 +345,8 @@
               <thead>
                 <tr>
                   <th>Currency</th>
-                  <th>Amount</th>
                   <th>Balance</th>
+                  <th>USD</th>
                   <th>Price</th>
                   <th>Change 24h</th>
                 </tr>
@@ -369,8 +374,8 @@
               <thead>
                 <tr>
                   <th>Currency</th>
-                  <th>Amount</th>
                   <th>Balance</th>
+                  <th>USD</th>
                   <th>Price</th>
                   <th>Change 24h</th>
                 </tr>
@@ -398,8 +403,8 @@
               <thead>
                 <tr>
                   <th>Currency</th>
-                  <th>Amount</th>
                   <th>Balance</th>
+                  <th>USD</th>
                   <th>Price</th>
                   <th>Change 24h</th>
                 </tr>
@@ -427,8 +432,8 @@
               <thead>
                 <tr>
                   <th>Currency</th>
-                  <th>Amount</th>
                   <th>Balance</th>
+                  <th>USD</th>
                   <th>Price</th>
                   <th>Change 24h</th>
                 </tr>
@@ -451,13 +456,42 @@
             </table>
           </div>
           <div class="col-md-6">
+            <h3 class="label allcoin">allcoin</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Currency</th>
+                  <th>Balance</th>
+                  <th>USD</th>
+                  <th>Price</th>
+                  <th>Change 24h</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="balance in balance_allcoin">
+                  <td>{{balance.currency}}</td>
+                  <td>{{balance.balance}}</td>
+                  <td ng-init="item = balance.balance * ticker[balance.currency].price; $parent.total_allcoin = $parent.total_allcoin + item">{{item | number:2}}</td>
+                  <td>{{ticker[balance.currency].price}}</td>
+                  <td ng-class="ticker[balance.currency].percent_change_24h > 0 ? 'success' : 'danger'">{{ticker[balance.currency].percent_change_24h}}%</td>
+                </tr>
+                <tr class="info">
+                  <td colspan="2">Total</td>
+                  <td>{{total_allcoin | number:2}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
             <h3 class="label ico">ico</h3>
             <table class="table">
               <thead>
                 <tr>
                   <th>Currency</th>
-                  <th>Amount</th>
                   <th>Balance</th>
+                  <th>USD</th>
                   <th>ICO</th>
                   <th>Price</th>
                   <th>ROI</th>
