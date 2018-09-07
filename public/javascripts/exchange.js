@@ -9,8 +9,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
 
   $scope.ico = 28.96;
   $scope.billy = -5;
-  $scope.total_quoine = 0;
-  $scope.total_qryptos = 0;
+  $scope.total_liquid = 0;
   $scope.total_bitfinex = 0;
   $scope.total_poloniex = 0;
   $scope.total_binance = 0;
@@ -25,11 +24,8 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   $scope.total_usd = 0;
 
   $scope.total_exchange = 0;
-  $scope.$watch('total_quoine', function () {
-    $scope.total_exchange += $scope.total_quoine;
-  });
-  $scope.$watch('total_qryptos', function () {
-    $scope.total_exchange += $scope.total_qryptos;
+  $scope.$watch('total_liquid', function () {
+    $scope.total_exchange += $scope.total_liquid;
   });
   $scope.$watch('total_bitfinex', function () {
     $scope.total_exchange += $scope.total_bitfinex;
@@ -56,8 +52,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     $scope.total_exchange += $scope.total_allcoin;
   });
 
-  let quoine = $http.get('balances/quoinex');
-  let qryptos = $http.get('balances/qryptos');
+  let liquid = $http.get('balances/liquid');
   let bitfinex = $http.get('balances/bitfinex');
   let poloniex = $http.get('balances/poloniex');
   let binance = $http.get('balances/binance');
@@ -72,8 +67,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
   let na = $http.get('ticker/na');
 
   $q.all({
-    quoine,
-    qryptos,
+    liquid,
     bitfinex,
     poloniex,
     binance,
@@ -85,9 +79,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     cmc,
     na
   }).then(r => {
-    $scope.balance_quoinex = r.quoine.data.filter(item => item.balance > 0);
-
-    $scope.balance_qryptos = r.qryptos.data
+    $scope.balance_liquid = r.liquid.data
       .filter(item => item.balance > 0);
 
     $scope.balance_bitfinex = r.bitfinex.data
@@ -154,8 +146,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
       })
       .filter(item => item.balance > 0);
 
-    $scope.balance_allcoin = [
-      {
+    $scope.balance_allcoin = [{
         currency: "ETH",
         balance: 9.8843
       },
@@ -206,7 +197,8 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
 
     $scope.total_billy = $scope.billy * r.cmc.data.ETH.price;
 
-    $scope.total_usd = parseFloat($scope.balance_quoinex.find(i => i.currency == "USD").balance) +
+    $scope.total_usd =
+      parseFloat($scope.balance_liquid.find(i => i.currency == "USD").balance) +
       parseFloat($scope.balance_bitfinex.find(i => i.currency == "USD").balance) +
       parseFloat($scope.balance_poloniex.find(i => i.currency == "USDT").balance) +
       parseFloat($scope.balance_binance.find(i => i.currency == "USDT").balance) +

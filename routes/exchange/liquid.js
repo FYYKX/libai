@@ -11,7 +11,7 @@ var
       'Content-Type': 'application/json',
       'X-Quoine-API-Version': '2'
     },
-    baseUrl: 'https://api.qryptos.com'
+    baseUrl: 'https://api.liquid.com'
   });
 
 function getOptions(verb, url, payload) {
