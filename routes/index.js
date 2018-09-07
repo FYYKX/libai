@@ -315,6 +315,26 @@ router.get('/ticker/na', function (req, res) {
         callback(null, data);
       });
     },
+    MEETONE: function (callback) {
+      request.get({
+        url: "https://api.coinmarketcap.com/v1/ticker/meetone/",
+        json: true
+      }, function (error, response, body) {
+        var data = body[0];
+        data.price = parseFloat(data.price_usd);
+        callback(null, data);
+      });
+    },
+    IQ: function (callback) {
+      request.get({
+        url: "https://api.coinmarketcap.com/v1/ticker/everipedia/",
+        json: true
+      }, function (error, response, body) {
+        var data = body[0];
+        data.price = parseFloat(data.price_usd);
+        callback(null, data);
+      });
+    }
   }, function (err, results) {
     res.json(results);
   });

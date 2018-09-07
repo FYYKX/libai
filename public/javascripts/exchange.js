@@ -163,9 +163,9 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     }
 
     var fix = {
-      "AUD": 0.76,
+      "AUD": 0.72,
       "USD": 1,
-      "SGD": 0.75,
+      "SGD": 0.73,
       "GZE": 0,
       "PWV": 0,
       "EVT": 0,
@@ -174,9 +174,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
       "ATD": 0,
       "IQX": 0,
       "MTO": 0,
-      "MEETONE": 0,
       "EOP": 0,
-      "IQ": 0,
       "EON": 0
     };
     for (var key in fix) {
