@@ -175,7 +175,8 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
       "IQX": 0,
       "MTO": 0,
       "EOP": 0,
-      "EON": 0
+      "EON": 0,
+      "CHI": 0
     };
     for (var key in fix) {
       r.cmc.data[key] = {
@@ -199,7 +200,6 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
       parseFloat($scope.balance_liquid.find(i => i.currency == "USD").balance) +
       parseFloat($scope.balance_bitfinex.find(i => i.currency == "USD").balance) +
       parseFloat($scope.balance_poloniex.find(i => i.currency == "USDT").balance) +
-      parseFloat($scope.balance_binance.find(i => i.currency == "USDT").balance) +
       parseFloat($scope.balance_yobit.find(i => i.currency == "USD").balance);
   });
 });
