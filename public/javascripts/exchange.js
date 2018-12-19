@@ -189,6 +189,9 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     r.cmc.data.QSH = r.cmc.data.QASH;
     r.cmc.data.QTM = r.cmc.data.QTUM;
     r.cmc.data.STR = r.cmc.data.XLM;
+    r.cmc.data.BAB = r.cmc.data.BCH;
+    r.cmc.data.BCHABC = r.cmc.data.BCH;
+    r.cmc.data.BCHSV = r.cmc.data.BSV;
 
     $scope.ticker = r.cmc.data;
 
