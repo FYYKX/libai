@@ -176,7 +176,8 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
       "MTO": 0,
       "EOP": 0,
       "EON": 0,
-      "CHI": 0
+      "CHI": 0,
+      "ETCV": 0 
     };
     for (var key in fix) {
       r.cmc.data[key] = {
