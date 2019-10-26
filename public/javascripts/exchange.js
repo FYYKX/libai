@@ -195,9 +195,7 @@ app.controller('balancesController', function ($scope, $http, $rootScope, $q) {
     r.cmc.data.BCHSV = r.cmc.data.BSV;
 
     $scope.ticker = r.cmc.data;
-
     $scope.ticker_na = r.na.data;
-
     $scope.total_billy = $scope.billy * r.cmc.data.ETH.price;
 
     $scope.total_usd =

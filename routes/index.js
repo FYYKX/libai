@@ -60,283 +60,41 @@ router.get('/ticker/binance', function (req, res) {
 
 router.get('/ticker/cmc', function (req, res) {
   request.get({
-    url: 'https://api.coinmarketcap.com/v1/ticker/',
+    url: 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
+    headers: {
+      'X-CMC_PRO_API_KEY': 'ed6337a4-3f5e-4512-9fd3-85014d28a744'
+    },
     json: true
   }, function (error, response, body) {
-    res.json(body.reduce((o, a) =>
+    res.json(body.data.reduce((o, a) =>
       Object.assign(o, {
         [a.symbol]: {
-          price: a.price_usd,
-          percent_change_24h: a.percent_change_24h
+          price: a.quote.USD.price,
+          percent_change_24h: a.quote.USD.percent_change_24h
         }
-      }), {}));
+      }), {})
+    );
   });
 });
 
 router.get('/ticker/na', function (req, res) {
-  async.parallel({
-    LRC: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/loopring/",
-        json: true,
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
+  request.get({
+    url: 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest',
+    qs: {
+      'symbol': 'LRC,STORJ,GTO,DLT,POE,QSP,EVX,INS,SUB,BCPT,BKX,INS,CRPT,CHSB,LATX,DENT,POWR,NCASH,ENJ,NXT,NEC,VET,QASH,MEETONE,IQ,WIN'
     },
-    STORJ: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/storj/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
+    headers: {
+      'X-CMC_PRO_API_KEY': 'ed6337a4-3f5e-4512-9fd3-85014d28a744'
     },
-    GTO: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/gifto/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    DLT: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/agrello-delta/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    POE: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/poet/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    QSP: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/quantstamp/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    YOYO: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/yoyow/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    EVX: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/everex/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    INS: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/ins-ecosystem/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    SUB: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/substratum/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    BCPT: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/blockmason/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    BKX: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/bankex/",
-        json: true,
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    INS: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/ins-ecosystem/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    CRPT: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/crypterium/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    CHSB: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/swissborg/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    LATX: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/latiumx/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    DENT: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/dent/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    POWR: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/power-ledger/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    NCASH: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/nucleus-vision/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    ENJ: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/enjin-coin/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    NXT: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/nxt/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    NEC: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/nectar/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    VET: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/vechain/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    QASH: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/qash/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    MEETONE: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/meetone/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    },
-    IQ: function (callback) {
-      request.get({
-        url: "https://api.coinmarketcap.com/v1/ticker/everipedia/",
-        json: true
-      }, function (error, response, body) {
-        var data = body[0];
-        data.price = parseFloat(data.price_usd);
-        callback(null, data);
-      });
-    }
-  }, function (err, results) {
-    res.json(results);
+    json: true,
+    gzip: true
+  }, function (error, response, body) {
+    Object.keys(body.data)
+      .map(function (k, v) {
+        body.data[k].price = body.data[k].quote.USD.price;
+        body.data[k].percent_change_24h = body.data[k].quote.USD.percent_change_24h;
+      })
+    res.json(body.data)
   });
 });
 
