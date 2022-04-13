@@ -6,7 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^3.2.2",
     "basic-auth": "^1.0.3",
     "bignumber.js": "^7.2.1",
     "body-parser": "^1.18.3",
